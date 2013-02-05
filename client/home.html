@@ -1,32 +1,11 @@
-<head>
-  <title>asteroid</title>
-</head>
-
-<body>
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-      <a class="brand" href="#">Asteroid</a>
-      <ul class="nav">
-        <li class="active"><a href="/">Home</a></li>
-        <li><a href="/docs/">Docs</a></li>
-      </ul>
-      <a href="" class="btn btn-primary pull-right">Sign In</a>
-      </div>
-    </div>
-  </div>
+<template name="home">
   <div class="hero-unit">
     <div class="container">
       <div class="row">
         <div class="span6">
           <h1>Discover Asteroid!</h1>
           <p>Asteroid is the best way to develop <strong>distributed applications</strong> for the Internet of Things. Use JavaScript to write global applications that run in your device and in the cloud!</p>
-          <div class="pagination-centered">
-            <form class="form-inline">
-              <input class="" type="text" placeholder="Email">
-              <button type="submit" class="btn">Let's stay in touch</button>
-            </form>
-          </div>        
+          {{> emailForm}}
         </div>
         <div class="span6">
           <img class="img-rounded" style="width:460px; height:259px;" alt="Coming soon: demo video">
@@ -106,36 +85,20 @@
         <p><a class="btn">Learn more...</a></p>
       </div>
     </div>
-    
-
-    <hr>
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="span2">
-            <img src="/img/tbideas-logo-white-100.png">
-          </div>
-          <div class="span10">
-            <small>
-            <p>Asteroid is a project of <a href="http://www.tbideas.com">TBideas</a> started in 2013. All code is licensed under the <a href="http://opensource.org/licenses/MIT">MIT License</a> and available on our <a href="http://www.github.com/tbideas/asteroid/">Github account</a>.
-            We love getting feedback! Please contact us on <a href="mailto:hello@tbideas.com">hello@tbideas.com</a>.<br/>
-            This site is built with the <a href="http://www.meteor.com/">Meteor</a>framework and uses <a href="http://twitter.github.com/bootstrap/">Twitter bootstrap</a>.
-            </small>
-          </div>
-        </div>
-      </div>
-      
-    </footer>
   </div>
-</body>
-
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  {{clicks}}
-  <input type="button" value="Click" />
 </template>
 
-<template name="connectionStatus">
-  {{status}}
+<template name="emailForm">
+  {{#if showEmailForm }}
+    <div class="pagination-centered">
+      <form class="form-inline" id="stayintouch" action="#">
+        <input name="email" class="" type="text" placeholder="Email">
+        <button type="submit" class="btn">Let's stay in touch</button>
+      </form>
+    </div>
+  {{else }}
+    <div class="pagination-centered">
+      <p><small>Thanks, We will stay in touch!</small></p>
+    </div>
+  {{/if}}
 </template>

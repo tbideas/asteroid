@@ -1,0 +1,57 @@
+<template name="dashboard">
+  <div class="container">
+    <div class="page-header">
+      <h1>Dashboard</h1>
+    </div>
+    
+    <div class="row">
+      <div class="span9">
+        <div class="row">
+          <div class="span9">
+          <h2>Your devices</h2>
+          {{> deviceList }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="span9">
+          <h2>Your programs</h2>
+          {{> programList}}
+          </div>
+        </div>
+      </div>
+      <div class="span3">
+        <div class="well">
+        <h3>Did you know...</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<template name="deviceList">
+  {{#if hasDevices }}
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr><th>Device</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {{#each devices}}
+          {{> device}}
+        {{/each}}
+      </tbody>
+    </table>
+  {{ else }}
+    <p>You do not have any device yet.</p>
+    <p><span class="btn">Add new device</span></p>
+  {{/if}}
+</template>
+
+<template name="device">
+  <tr class="{{rowClass status }}"><td>{{ name }}</td><td>{{ message }}</td></tr>
+</template>
+
+<template name="programList">
+  <p>You do not have any program of your own yet. Would you like to take a look at <a>our examples</a>?</p>
+</template>
