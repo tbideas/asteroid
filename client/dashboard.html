@@ -1,9 +1,13 @@
 <template name="dashboard">
+  {{> addDeviceModal }}
+  
   <div class="container">
     <div class="page-header">
       <h1>Dashboard</h1>
     </div>
     
+
+
     <div class="row">
       <div class="span9">
         <div class="row">
@@ -34,7 +38,7 @@
   {{#if hasDevices }}
     <table class="table table-bordered table-hover">
       <thead>
-        <tr><th>Device</th><th>Status</th></tr>
+        <tr><th>Device</th><th>Device information</th><th>Status</th></tr>
       </thead>
       <tbody>
         {{#each devices}}
@@ -44,14 +48,76 @@
     </table>
   {{ else }}
     <p>You do not have any device yet.</p>
-    <p><span class="btn">Add new device</span></p>
   {{/if}}
+  <p><span class="btn">Add new device</span></p>
 </template>
 
 <template name="device">
-  <tr class="{{rowClass status }}"><td>{{ name }}</td><td>{{ message }}</td></tr>
+  <tr class="{{rowClass status }}">
+    <td class="deviceName">
+      {{#if editName }}
+        <div class="input-append">
+          <input type="text" placeholder="Name me!" value="{{ name }}">
+          <button class="btn" type="button"><i class="icon-ok"/></button>
+        </div>
+      {{ else }}
+        {{ name }}
+      {{/if }}
+    </td>
+    <td><pre>{{ software }} - {{ version }}</pre></td>
+    <td>{{ lastSeen }}</td>
+  </tr>
 </template>
 
 <template name="programList">
   <p>You do not have any program of your own yet. Would you like to take a look at <a>our examples</a>?</p>
+</template>
+
+<template name="addDeviceModal">
+  <div id="addDeviceModal" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Add a new device</h3>
+    </div>
+    <div class="modal-body">
+      {{> addDeviceModalBody }}
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn">Cancel</a>
+      <a href="#" class="btn btn-primary hide fade">Ok</a>
+    </div>
+  </div>
+</template>
+
+<template name="addDeviceModalBody">
+  {{#if hasDevices }}
+    <p class="text-center">This is the list of devices that connected from your IP address.</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Device</th>
+          <th>IP address</th>
+          <th>Software - Version</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each devices}}
+          {{>newDevice}}
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <p class="text-center">You can now turn on your compatible device. When your device connects, it will appear here.</p>
+  {{/if}}
+  <p class="pagination-centered"><img src="/img/ajax-loader.gif"></p>
+</template>
+
+<template name="newDevice">
+  <tr>
+    <td>{{ token }}</td>
+    <td>{{ ip }}</td>
+    <td>{{ software }} - {{ version }}</td>
+    <td><button class="btn pull-right"><i class="icon-plus-sign"></i></button></td>
+  </tr>
 </template>
