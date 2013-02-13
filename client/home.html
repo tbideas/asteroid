@@ -1,14 +1,21 @@
+<!--
+- Le terme "distributed application" est-il limpide pour tout le monde ? (moi je le comprends mais je me pose la question).
+- Finalement dans la tagline actuelle on met l'accent sur "distributed application" plutôt que sur "facilitate exchange with other devices or services". A court terme c'est certain, toutefois ne faut-il pas davantage distiller ce message pour la vision moyen terme ? (la aussi je me pose la question, pas de certitude)
+- MIT license: je note le point pour que tu me rappelles ce qu'elle apporte vs CC-SA & co.
+- le logo du § "More than a framework"
+-->
+
 <template name="home">
   <div class="hero-unit">
     <div class="container">
       <div class="row">
         <div class="span6">
           <h1>Discover Asteroid!</h1>
-          <p>Asteroid is the best way to develop <strong>distributed applications</strong> for the Internet of Things. Use JavaScript to write global applications that run in your device and in the cloud!</p>
+          <p>Asteroid is the best way to develop <strong>distributed applications</strong> for the Internet of Things. Simply use JavaScript to write global applications that run in your device and in the cloud!</p>
           {{> emailForm}}
         </div>
         <div class="span6">
-          <img class="img-rounded" style="width:460px; height:259px;" alt="Coming soon: demo video">
+			    <p class="pagination-centered"><em>Coming soon: demo video</em></p>
         </div>
       </div>
     </div>
@@ -24,12 +31,12 @@
       <div class="span4">
         <img src="/img/20-gear-2.png" class="bs-icon">
         <h3>One programming language</h3>
-        <p>Write programs for the Raspberry Pi, Arduinos and other <a href="#">supported devices</a> with only one programming language.<br/>And of course your server logic is also JavaScript!</p>
+        <p>Write programs for the Raspberry Pi, Arduinos and other <a href="#devices">supported devices</a> with only one programming language.<br>And of course your server logic is also JavaScript!</p>
       </div>
       <div class="span4">
         <img src="/img/58-wifi.png" class="bs-icon">
         <h3>More than a framework</h3>
-        <p>Asteroid is also a platform that helps you connect and monitor your device, control and distribute your code and facilitate exchange with other devices or services.<br/>Of course, Asteroid is completely free and licensed under the MIT License so that you will never depend on one company to run your service!</p>
+        <p>Asteroid is also a platform that helps you connect and monitor your device, control and distribute your code and facilitate exchange with other devices or services.<br>Asteroid technology is completely free and licensed under the MIT License so that you will never depend on a single company to run your service!</p>
       </div>
     </div>
     <div class="page-header">
@@ -53,36 +60,39 @@
       </div>
     </div>
     <div class="page-header">
-      <h1>Why did we build it?</h1>
+      <h1>Why should I need it?</h1>
     </div>
     <div class="row">
       <div class="span12">
-        <p>We were building connected objects using Arduinos and Raspberry Pi and realized that there is no elegant framework to quickly work on distributed projects where the logic is spread between the device and a cloud service.</p>
-        <p>Asteroid addresses those challenges and lets you develop both the server and the client, together and with only one modern and powerful language: JavaScript.</p>
+        <p>As we were building connected objects using Arduinos and Raspberry Pi, we realized that there is no elegant framework to quickly work on distributed projects where the logic is spread between the device and a cloud service.</p>
+        <p>Asteroid addresses those challenges and lets you develop both the server and the client, together and with only one popular, modern and powerful language: JavaScript.</p>
       </div>
     </div>
     <div class="page-header">
       <h1>Supported devices</h1>
     </div>
-    <div class="row">
+    <div id="devices" class="row">
       <div class="span6">
         <h3>Asteroid is already compatible with...</h3>
         <p>
           <ul>
-            <li>The Arduino family: The programs are run on the server side</li>
-            <li>Raspberry Pis: Programs can be distributed between the server and the client</li>
-            <li>Loochi lamp: Loochi is a high-power colored lamp built and distributed by TBideas. Asteroid supports Loochi very well.</li>
+            <li><strong>The Arduino family:</strong> The programs are run on the server side</li>
+            <li><strong>Raspberry Pis:</strong> Programs can be distributed between the server and the client</li>
+            <li><strong>Loochi lamp:</strong> <a>Loochi</a> is a high-power colored lamp built and distributed by TBideas. Asteroid supports Loochi very well.</li>
           </ul>
           For those devices, you only need to follow our <a>Getting Started</a> guides and your device will be online in no time!
-          <br/>
+		    </p>
+		    <p>
           Would you like to see your favorite device added to the list?
-          <a class="btn" href="mailto:hello@tbideas.com">Contact us!</a>
         </p>
+        <p>
+			    <a class="btn btn-info" href="mailto:hello@tbideas.com">Contact us!</a>
+		    </p>
       </div>
       <div class="span6">
-        <h3>Connect your devices to Asteroid</h3>
+        <h3>Connect your own devices to Asteroid</h3>
         <p>Connecting more devices to Asteroid is very easy. You just need to implement the Asteroid client protocol, describe the capabilities of your device that you want to expose in Asteroid and write a few functions to connect everything together.</p>
-        <p><a class="btn">Learn more...</a></p>
+        <p><a class="btn btn-info">Learn more...</a></p>
       </div>
     </div>
   </div>
