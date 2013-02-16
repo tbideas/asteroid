@@ -1,0 +1,92 @@
+<template name="navUser">
+  {{#if currentUser }}
+    {{> userLoggedIn}}
+  {{else }}
+    {{> userLoggedOut}}
+  {{/if}}
+</template>
+
+<template name="userLoggedOut">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      Login<b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        {{> userForm}}
+      </li>
+    </ul>
+  </li>
+</template>
+
+<template name="userLoggedIn">
+  {{#if loggingIn}}
+    <li><a>Logging in...</a></li>
+  {{else }}
+    <li>
+       <img class="img-rounded" style="height:32px; margin-top:4px;"
+            src="{{currentUser.profile.avatar_url}}"/>
+    </li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        {{ userDisplayName }}
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        <!-- <li><a>Account Settings</a></li> -->
+        <li class="divide"></li>
+        <li><a id="logout">Logout</a></li>
+      </ul>
+    </li>
+  {{/if}}
+</template>
+
+<template name="userForm">
+  {{#if userLoginForm}}
+    <form class="user-form" accept-charset="UTF-8">
+      <label>Email</label>
+      <input id="email" type="text" size="30"/>
+      <label>Password</label>
+      <input id="password" type="password" size="30"/>
+      {{>loginError}}
+      <input class="btn btn-primary" type="submit" value="Sign In" />
+      <div class="extra-links">
+        <button class="btn btn-link" name="forgot">Forgot password</button>
+        <button class="btn btn-link" name="signin" class="pull-right">Create account</button>
+      </div>
+      <div class="more-logins">
+        <hr/>
+        <p class="pagination-centered">Or login with</p>
+        <button class="btn btn-link" name="login-twitter"><img src="/img/login-twitter.png"></button>
+        <button class="btn btn-link" name="login-facebook"><img src="/img/login-facebook.png"/></button>
+        <button class="btn btn-link" name="login-github"><img src="/img/login-github.png"/></button>
+      </div>
+    </form>
+  {{/if}}
+  {{#if userSigninForm}}
+    <form class="user-form" accept-charset="UTF-8">
+      <label>Email</label>
+      <input id="email" type="text" size="30"/>
+      <label>Password</label>
+      <input id="password" type="password" size="30"/>
+      {{>loginError}}
+      <input class="btn btn-primary" type="submit" value="Create account" />
+    </form>
+  {{/if}}
+  {{#if userForgotForm}}
+    <form class="user-form" accept-charset="UTF-8">
+      <label>Email</label>
+      <input id="email" type="text" size="30"/>
+      <input class="btn btn-primary" type="submit" value="Reset password" />
+    </form>
+  {{/if}}
+  {{#if userForgotFormMailSent}}
+    <form class="user-form"><p>An email was sent with a link to reset your password.</p></form>
+  {{/if}}
+</template>
+
+<template name="loginError">
+  {{#if loginError}}
+    <p class="text-error">Sorry, {{loginError}}</p>
+  {{/if}}
+</template>

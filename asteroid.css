@@ -17,3 +17,27 @@ body {
   background-position: 1px;
 }
 
+/* Forms in navbar user menu */
+.user-form {
+  margin: 10px 10px 2px 10px;
+}
+.user-form .btn-primary {
+  width: 100%; 
+  padding-bottom:0px;
+  height: 2.5em;
+}
+.user-form .extra-links .btn {
+  margin: 2px 0px 0px 0px;
+  padding-bottom: 0px;
+  font-size: 75%;
+  line-height: 1em;
+}
+.user-form .more-logins hr {
+  margin: 5px 0px;
+}
+.user-form .more-logins p {
+  margin-bottom: 0px;
+}
+.user-form .more-logins button{
+  width: 30%;
+}
