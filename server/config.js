@@ -1,28 +1,35 @@
 Accounts.loginServiceConfiguration.remove({
   service: "twitter"
 });
-Accounts.loginServiceConfiguration.insert({
-  service: "twitter",
-  appId: process.env.TWITTER_TOKEN,
-  secret: process.env.TWITTER_KEY
-});
+
+if (Meteor.settings.twitter) {
+  Accounts.loginServiceConfiguration.insert({
+    service: "twitter",
+    appId: Meteor.settings.twitter.token,
+    secret: Meteor.settings.twitter.key
+  });  
+}
 
 Accounts.loginServiceConfiguration.remove({
   service: "github"
 });
-Accounts.loginServiceConfiguration.insert({
-  service: "github",
-  appId: process.env.GITHUB_TOKEN,
-  secret: process.env.GITHUB_KEY
-});
+  if (Meteor.settings.twitter) {
+  Accounts.loginServiceConfiguration.insert({
+    service: "github",
+    appId: Meteor.settings.github.token,
+    secret: Meteor.settings.github.key
+  });
+}
 
 Accounts.loginServiceConfiguration.remove({
   service: "facebook"
 });
-Accounts.loginServiceConfiguration.insert({
-  service: "facebook",
-  appId: process.env.FACEBOOK_TOKEN,
-  secret: process.env.FACEBOOK_KEY
-});
+if (Meteor.settings.twitter) {
+  Accounts.loginServiceConfiguration.insert({
+    service: "facebook",
+    appId: Meteor.settings.facebook.token,
+    secret: Meteor.settings.facebook.key
+  });
+}
 
 console.log(Accounts.loginServiceConfiguration.find().fetch());
