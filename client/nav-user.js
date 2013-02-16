@@ -15,11 +15,11 @@ Template.userLoggedOut.events({
   },
   "click button[name='forgot']": function(e) {
     Session.set("userForm", "forgot");
-    e.preventDefault();
+    return false;
   },
   "click button[name='signin']": function(e) {
     Session.set("userForm", "signin");
-    e.preventDefault();
+    return false;
   },
   "click button[name='login-twitter']": function(e) {
     Meteor.loginWithTwitter(socialLoginCallback);
@@ -60,6 +60,7 @@ Template.userLoggedOut.events({
       });
       Session.set("userForm", "forgotMailSent");
     }
+    return false;
   }
 });
 Template.userForm.userLoginForm = function() {
