@@ -1,17 +1,10 @@
-<!--
-- Le terme "distributed application" est-il limpide pour tout le monde ? (moi je le comprends mais je me pose la question).
-- Finalement dans la tagline actuelle on met l'accent sur "distributed application" plutôt que sur "facilitate exchange with other devices or services". A court terme c'est certain, toutefois ne faut-il pas davantage distiller ce message pour la vision moyen terme ? (la aussi je me pose la question, pas de certitude)
-- MIT license: je note le point pour que tu me rappelles ce qu'elle apporte vs CC-SA & co.
-- le logo du § "More than a framework"
--->
-
 <template name="home">
   <div class="hero-unit">
     <div class="container">
       <div class="row">
         <div class="span6">
           <h1>Discover Asteroid!</h1>
-          <p>Asteroid is the best way to develop <strong>distributed applications</strong> for the Internet of Things. Simply use JavaScript to write global applications that run in your device and in the cloud!</p>
+          <p>Asteroid is the best way to develop for the <strong>Internet of Things</strong>. Simply use JavaScript to write global applications that run in your device and in the cloud!</p>
           {{> emailForm}}
         </div>
         <div class="span6">
@@ -45,7 +38,7 @@
     <div class="row">
       <div class="span4">
         <h3>1. Connect</h3>
-        <p>Download a client for your <a>supported device</a> and follow our instructions to install it.<br/>
+        <p>Download a client for your <a href="#devices">supported device</a> and follow our instructions to install it.<br/>
           You will be connected to Asteroid in a few minutes only!</p>
       </div>
       <div class="span4">
@@ -78,21 +71,19 @@
           <ul>
             <li><strong>The Arduino family:</strong> The programs are run on the server side</li>
             <li><strong>Raspberry Pis:</strong> Programs can be distributed between the server and the client</li>
-            <li><strong>Loochi lamp:</strong> <a>Loochi</a> is a high-power colored lamp built and distributed by TBideas. Asteroid supports Loochi very well.</li>
+            <li><strong>Loochi lamp:</strong> <a href="http://www.getloochi.com/">Loochi</a> is a high-power colored lamp built and distributed by TBideas. Asteroid supports Loochi very well.</li>
           </ul>
-          For those devices, you only need to follow our <a>Getting Started</a> guides and your device will be online in no time!
-		    </p>
-		    <p>
-          Would you like to see your favorite device added to the list?
-        </p>
-        <p>
-			    <a class="btn btn-info" href="mailto:hello@tbideas.com">Contact us!</a>
+          For those devices, you only need to follow our Getting Started guides and your device will be online in no time!
 		    </p>
       </div>
       <div class="span6">
         <h3>Connect your own devices to Asteroid</h3>
         <p>Connecting more devices to Asteroid is very easy. You just need to implement the Asteroid client protocol, describe the capabilities of your device that you want to expose in Asteroid and write a few functions to connect everything together.</p>
-        <p><a class="btn btn-info">Learn more...</a></p>
+		    <p>
+          Would you like to see your favorite device added to the list?
+        
+			    <a class="btn pull-right" href="mailto:hello@tbideas.com">Contact us!</a>
+		    </p>
       </div>
     </div>
   </div>
