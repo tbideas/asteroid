@@ -4,17 +4,16 @@
 </head>
 
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-      <a class="brand" href="#">Asteroid</a>
-      <ul class="nav">
-        <li class="active"><a href="/">Home</a></li>
-        <li><a href="/docs/">Docs</a></li>
-      </ul>
-    
-      <p class="pull-right">{{ loginButtons align="right"}}</p>
-      
+        <a class="brand" href="#">Asteroid</a>
+        <ul class="nav">
+          <li class="active"><a href="/">Home</a></li>
+        </ul>
+        <ul class="nav pull-right">
+          {{>navUser }}
+        </ul>
       </div>
     </div>
   </div>
@@ -44,10 +43,9 @@
 </body>
 
 <template name="page">
-  {{#if loggedIn }}
+  {{#if currentUser }}
     {{>dashboard }}
   {{else }}
     {{>home }}
   {{/if}}
 </template>
-
