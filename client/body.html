@@ -9,6 +9,7 @@
         <a class="brand" href="#">Asteroid</a>
         <ul class="nav">
           <li class="active"><a href="/">Home</a></li>
+          <li><a onclick="Session.set('gettingstarted', true); return false;">Getting started</a></li>
         </ul>
         <ul class="nav pull-right">
           {{>navUser }}
@@ -46,6 +47,10 @@
   {{#if currentUser }}
     {{>dashboard }}
   {{else }}
-    {{>home }}
+    {{#if gettingstarted}}
+      {{>gettingstarted}}
+    {{else}}
+      {{>home }}
+    {{/if}}
   {{/if}}
 </template>
