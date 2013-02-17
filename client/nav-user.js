@@ -12,6 +12,7 @@ Template.userLoggedOut.events({
     /* Reset default state before showing form */
     Session.set("userForm", null);
     Session.set("loginError", null);
+    analytics.event("Signup+Login", "Show Dropwdown");
   },
   "click button[name='forgot']": function(e) {
     Session.set("userForm", "forgot");
@@ -23,26 +24,34 @@ Template.userLoggedOut.events({
   },
   "click button[name='login-twitter']": function(e) {
     Meteor.loginWithTwitter(socialLoginCallback);
+    analytics.event("Signup+Login", "Signin Twitter");
     return false;
   },
   "click button[name='login-facebook']": function(e) {
     Meteor.loginWithFacebook(socialLoginCallback);
+    analytics.event("Signup+Login", "Signin Facebook");
     return false;
   },
   "click button[name='login-github']": function(e) {
     Meteor.loginWithGithub(socialLoginCallback);
+    analytics.event("Signup+Login", "Signin Github");
     return false;
   },
   
   "submit form": function(event, template) {
     var email = template.find("#email").value;
     Session.set("loginError", null);
+    
+    /* Login with email and password */
     if (!Session.get("userForm") || Session.get("userForm") == "login") {
       var password = template.find("#password").value;
       Meteor.loginWithPassword(email, password, function (error) {
-        Session.set("loginError", error.reason);
+        if (error) Session.set("loginError", error.reason);
       });
+      analytics.event("Signup+Login", "Signin password");
     }
+    
+    /* New user signing in with email and password */
     if (Session.get("userForm") == "signin") {
       var password = template.find("#password").value;
       Accounts.createUser({
@@ -50,15 +59,19 @@ Template.userLoggedOut.events({
         'email': email,
         'password': password
       }, function(error) {
-        Session.set("loginError", error.reason);
+        if (error) Session.set("loginError", error.reason);
       });
+      analytics.event("Signup+Login", "Signup with password");
     }
+    
+    /* User forgot his email */
     if (Session.get("userForm") == "forgot") {
       Accounts.forgotPassword({ 'email': email }, function(error) {
         if (error)
           Session.set("loginError", error.reason);
       });
       Session.set("userForm", "forgotMailSent");
+      analytics.event("Signup+Login", "Password forgotten");
     }
     return false;
   }
@@ -82,16 +95,15 @@ Template.userForm.userForgotFormMailSent = function() {
 }
 
 Template.userLoggedIn.userDisplayName = function() {
-  if (Meteor.user().profile && Meteor.user().profile.name) 
-    return Meteor.user().profile.name;
-  if (Meteor.user().username) 
-    return Meteor.user().username;
-  if (Meteor.user().emails && Meteor.user().emails.length > 0)
-    return Meteor.user().emails[0].address;
-  return "John Doe";
+  return getUserDisplayName(Meteor.user());
 }
+Template.userLoggedIn.userAvatar = function() {
+  return getUserAvatarUrl(Meteor.user());
+}
+
 Template.userLoggedIn.events({
   'click #logout': function() {
+    analytics.event("Signup+Login", "Logout");
     Meteor.logout();
   }
 });

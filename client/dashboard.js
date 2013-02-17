@@ -1,6 +1,4 @@
-Meteor.subscribe("new-devices");
-Meteor.subscribe("user-devices");
-
+Template.dashboard.rendered = function() { analytics.page('/dashboard'); }
 
 Template.deviceList.devices = function() {
 	return Devices.findUserDevices();
@@ -11,6 +9,7 @@ Template.deviceList.hasDevices = function() {
 Template.deviceList.events({
 	'click .btn': function(event, template) {
 		$('#addDeviceModal').modal();
+		analytics.event("Dashboard", "New device wizard");
 	}
 });
 Template.device.rowClass = function(status) {
@@ -61,6 +60,7 @@ Template.addDeviceModalBody.hasDevices = function() {
 
 Template.newDevice.events({
 	'click .btn': function() {
+	  analytics.event("Dashboard", "New device added");
 		Devices.update({'_id': this._id}, {$set:{user: Meteor.userId()}});
 		$('addDeviceModal').modal('hide');
 	}
