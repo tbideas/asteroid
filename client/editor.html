@@ -1,0 +1,43 @@
+<template name="editor">
+  <div class="container editor">
+    <div class="row">
+      {{> code-toolbar}}
+    </div>
+    <div class="row">
+      <div class="span12">
+        {{> codeEditor }}
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<template name="code-toolbar">
+  <div class="span12 editor-toolbar">
+    <div class="btn-group">
+      <button class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        myscript.js
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#">blink.js</a></li>
+      </ul>
+    </div>
+    <div class="btn-group pull-right">
+      <button class="btn disabled"><i class="icon-play"></i></button>
+    </div>
+    <p class="pull-right editor-saved">
+      {{>saveMessage}}
+    </p>
+  </div>
+</template>
+
+<template name="codeEditor">
+  {{#constant}}
+    <div id="code-editor" style="min-height: 100px;"></div>
+  {{/constant}}
+</template>
+
+<template name="saveMessage">
+  <small class="{{ saveMessageClass }}">{{ saveMessage }}</small>
+</template>

@@ -3,9 +3,6 @@ Meteor.startup(function(){
   	insert: function(userId, doc){
 			return true;
 		},
-		'remove': function(userId, doc) { // TODO: dev only! removeme!
-			return true;
-		},
 		'update': function(userId, docs, fields, modifier) {
 			if (docs.length > 1) return false;
 
