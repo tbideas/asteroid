@@ -4,14 +4,22 @@ var codeMirror;
 var lastSaved;
 var lastSaveError;
 
+/* TODO: this interval should probably created/destroyed when the page is displayed/hidden */
+
 var saveMessageInterval = setInterval(function() {
-  if (saveTimeout) {
-    Session.set("saveMessageClass", "muted");
-    Session.set("Saving...");
-  }
-  else if (lastSaveError) {
+  if (lastSaveError) {
     Session.set("saveMessageClass", "text-error")
     Session.set("saveMessage", "Unable to save. Re-trying...");
+  }
+  else if (saveTimeout) {
+    if (Meteor.status().connected != true) {
+      Session.set("saveMessageClass", "text-error")
+      Session.set("saveMessage", "Disconnected from server. Re-connecting...");
+    }
+    else {
+      Session.set("saveMessageClass", "muted");
+      Session.set("Saving...");      
+    }
   }
   else if (lastSaved) {
     Session.set("saveMessageClass", "muted");
@@ -36,16 +44,17 @@ saveCode = function() {
     {$set: { 'code': codeMirror.doc.getValue() }},
     function(error) {
       if (error) {
+        console.log("Error saving: %j", error);
         lastSaveError = error;
         saveTimeout = setTimeout(saveCode, 3000);
       }
       else {
         lastSaveError = null;
         lastSaved = moment();
+        saveTimeout = null;
       }
     }
     );
-  saveTimeout = null;
 }
 
 Template.editor.created = function(template) {
