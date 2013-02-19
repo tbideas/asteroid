@@ -45,7 +45,7 @@ body {
 /* Editor page */
 .CodeMirror {
   background-color: white;
-  border-radius: 5px;
+  border-radius: 3px;
   border: solid 1px grey;
 }
 .editor-toolbar {
