@@ -46,7 +46,12 @@ body {
 .CodeMirror {
   background-color: white;
   border-radius: 3px;
-  border: solid 1px grey;
+  border: solid 1px #eee;
+  height: auto;
+}
+.CodeMorror-scroll {
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 .editor-toolbar {
   margin-top: 10px;
