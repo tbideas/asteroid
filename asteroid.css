@@ -41,3 +41,20 @@ body {
 .user-form .more-logins button{
   width: 30%;
 }
+
+/* Editor page */
+.CodeMirror {
+  background-color: white;
+  border-radius: 5px;
+  border: solid 1px grey;
+}
+.editor-toolbar {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.editor-toolbar p {
+}
+.editor-toolbar .editor-saved {
+  line-height: 2;
+  margin-right: 1em;
+}
