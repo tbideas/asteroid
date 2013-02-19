@@ -1,30 +1,58 @@
 <template name="gettingstarted">
-  <div class="container">
-    <div class="page-header">
-      <h1>Dashboard</h1>
-    </div>
-    <div class="row">
-      <div class="span9">
-        <div class="row">
-          <div class="span9">
-          <h2>Your devices</h2>
-
-          </div>
-        </div>
-        <div class="row">
-          <div class="span9">
-          <h2>Your programs</h2>
-
-          </div>
-        </div>
-      </div>
-      <div class="span3">
-        <div class="well">
-        <h3>Did you know...</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
-      </div>
-    </div>
-
-  </div>
+	<div class="container">
+		<div name="rasperrypi" class="row">
+			<h3>Raspery Pi</h3>
+			<h4>Setup</h4>
+			<p><ol>
+				<li>Plug the connector between the Rasperry Pi card and the Asteroid-L card</li>
+				<li>Plug the 12V alimentation cord to the Rasperry Pi card</li>
+				<li>Plug the 12V alimentation cord to the Asteroid-L card</li>
+				<li>Turn on the Rasperry Pi card</li>
+			</ol></p>
+			<h4>Network connection - Ethernet</h4>
+			<p><ol>
+				<li>Plug the ethernet cord to the ethernet connector on the Rasperry Pi card</li>
+			</ol></p>
+			<h4>Network connection - Wifi</h4>
+			<p><ol>
+				<li>Connect to Rasperry Pi wifi configuration page by connecting from another device browser,by visiting http://192.168.99.99</li>
+				<li>Follow indications on the web page to indicate your wifi network parameters</li>
+			</ol></p>
+			<p>After form validation, your Rasperry Pi device will reboot and should be connected to the internet through your wifi network. If not the case, please proceed again.</p>
+			<h4>Register your device</h4>
+			<p><ol>
+				<li>If you are not already connected, connect to your <a href="#">Asteroid account</a></li>
+				<li>Add your device to your list of Asteroid devices</li>
+				<li>If your device is correclty detected, a green light will be displayed next to your device name</li>
+			</ol></p>		
+			<h4>Load a script from the cloud library</h4>
+			<p><ol>
+				<li>Connect to your <a onclick="Session.set('dashboard', true); return false;">dashboard</a></li>
+				<li>Access to the <a href="#">Library page</a> and select your a script to run it</li>
+			</ol></p>
+			<h4>Create & run your first script</h4>
+			<p><ol>
+				<li>Connect to your <a onclick="Session.set('dashboard', true); return false;">dashboard</a></li>
+				<li>Access to the <a href="#">Sandbox page</a></li>
+				<li>Type or copy-paste your Javascript in the text input</li>
+				<li>Click on <a class="btn btn-info btn-small">Save</a> to save your script</li>
+				<li>Click on <a class="btn btn-info btn-small">Run</a> to run your script</li>
+			</ol></p>
+		</div>
+	</div>
+	<div name="arduino" class="container">
+		<div class="row">
+		<hr>
+			<h3>Arduino</h3>
+			<p>blablabla</p>
+		</div>
+	</div>
+	<div name="loochi" class="container">
+		<div class="row">
+		<hr>
+			<h3>Loochi</h3>
+			<p>blablabla</p>
+		</div>
+	</div>
+	
 </template>
