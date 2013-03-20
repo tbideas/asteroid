@@ -43,9 +43,5 @@
 </body>
 
 <template name="page">
-  {{#if currentUser }}
-    {{>dashboard }}
-  {{else }}
-    {{>home }}
-  {{/if}}
+  {{{ pageContent }}}
 </template>
