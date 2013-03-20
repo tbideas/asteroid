@@ -3,28 +3,26 @@ Meteor.startup(function(){
   	insert: function(userId, doc){
 			return true;
 		},
-		'update': function(userId, docs, fields, modifier) {
-			if (docs.length > 1) return false;
-
+		'update': function(userId, device, fields, modifier) {
 			/* Update userId of a device */
 			if (fields.length == 1 && fields[0] == "user") {
-				if (docs[0].user === undefined)
+				if (device.user === undefined)
 					return true;
 				// TODO: Should also check that the IP addresses match
 				// TODO: Should check that the user is setting his own id and not someone else's
 			}
 			/* Update the name of a device */
 			if (fields.length == 1 && fields[0] == "name") {
-				if (docs[0].user === Meteor.userId()) {
+				if (device.user === Meteor.userId()) {
 					return true;
 				}
 			}
-			
+
 			console.log("Devices.update() denied");
 			console.log(docs);
 			console.log(fields);
 			console.log(modifier);
-				
+
 			return false;
 		}
 	});
@@ -33,16 +31,25 @@ Meteor.startup(function(){
 Meteor.publish("new-devices", function() {
 	return Devices.findNewDevices();
 });
-	
+
 Meteor.publish("user-devices", function() {
 	return Devices.findUserDevices(this.userId);
+});
+
+/*
+ * Used by devices to subscribe to a view of their code.
+ * TODO: seriously improve security here. It's too easy to pretend being
+ * another device.
+ */
+Meteor.publish("device-code", function(token) {
+  return Devices.find({'token': token}, { 'code': 1});
 });
 
 Meteor.methods({
 	/* Each device is supposed to have a unique token and use it when connecting. */
 	// TODO: add some security here ;) It is a little too easy to be someone's else device
 	'register': function(token, software, version) {
-		if (token === undefined) 
+		if (token === undefined)
 			return false;
 		var d = Devices.find({'token': token});
 		if (d.count() == 0) {

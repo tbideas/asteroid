@@ -5,14 +5,12 @@ Meteor.startup(function() {
 			return true;
 		},
 		'remove': function(userId, doc) {
-      if (doc.userId == userId) 
+      if (doc.userId == userId)
 			  return true;
-			else 
+			else
 			  return false;
 		},
-		'update': function(userId, docs, fields, modifier) {
-			if (docs.length > 1) return false;
-
+		'update': function(userId, code, fields, modifier) {
 			/* Update userId of a device */
 			if (fields.length == 1 && fields[0] == "code") {
         return true;
@@ -67,14 +65,6 @@ var rpiCode = function run() {
 	  }
 	}, 500);
 }
-
-Meteor.publish("code", function() {
-	var self = this;
-	
-	self.set("code", 1, { 'code': rpiCode.toString()});
-	self.complete();
-	self.flush();
-});
 
 Meteor.publish("user-codes", function() {
   return Codes.find({ 'userId': this.userId});
