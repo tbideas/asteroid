@@ -6,13 +6,7 @@
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-        <a class="brand" href="#">piJS</a>
-        <ul class="nav">
-          <li class="active"><a href="/">Home</a></li>
-        </ul>
-        <ul class="nav pull-right">
-          {{>navUser }}
-        </ul>
+        {{> nav }}
       </div>
     </div>
   </div>
@@ -42,6 +36,21 @@
   </div>
 </body>
 
+<template name="nav">
+  <a class="brand" href="#">piJS</a>
+  <ul class="nav">
+    {{#each navLinks }}
+      {{> navLink}}
+    {{/each }}
+  </ul>
+  <ul class="nav pull-right">
+    {{>navUser }}
+  </ul>
+</template>
+<template name="navLink">
+  <li class="{{navClass}}"><a href="#">{{ title }}</a></li>
+</template>
+
 <template name="page">
-  {{{ pageContent }}}
+  {{{ content }}}
 </template>
