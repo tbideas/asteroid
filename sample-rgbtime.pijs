@@ -1,0 +1,42 @@
+/*
+ * Sample code: Changes the color of an RGB led depending on the
+ * current time.
+ */
+
+function setColor(red, green, blue) {
+  console.log(util.format("setColor: %d %d %d", red, green, blue));
+  piblaster.setPwm(1, red);
+  piblaster.setPwm(2, green);
+  piblaster.setPwm(4, blue);
+
+
+  // Enable the led if we have a value > 0
+  if (red > 0 || green > 0 || blue > 0) {
+    piblaster.setPwm(0, 1);
+  }
+  // Otherwise disable it
+  else {
+    piblaster.setPwm(0, 0);
+  }
+}
+
+var SEC_PER_MIN = 10;
+setInterval(function() {
+  var d = new Date();
+  var intensity = 0;
+
+  if (d.getSeconds() > 60 - SEC_PER_MIN) {
+    intensity = 1 - (60 - d.getSeconds()) / SEC_PER_MIN;
+  }
+  switch (d.getMinutes() % 3) {
+    case 0:
+      setColor(intensity, 0, 0);
+      break;
+    case 1:
+      setColor(0, intensity, 0);
+      break;
+    case 2:
+      setColor(0, 0, intensity);
+      break;
+  }
+}, 500);
