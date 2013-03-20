@@ -7,7 +7,7 @@ Template.deviceList.hasDevices = function() {
 	return Devices.findUserDevices().count() > 0;
 };
 Template.deviceList.events({
-	'click .btn': function(event, template) {
+	'click .addDevice': function(event, template) {
 		$('#addDeviceModal').modal();
 		analytics.event("Dashboard", "New device wizard");
 	}
@@ -35,13 +35,17 @@ Template.device.events({
 	'click td.deviceName': function (evt, template) {
 		Session.set("edit-" + this._id, true);
 	},
- 	'keypress input, click button': function (event, template) {
+ 	'keypress input.endsInput, click button.endsInput': function (event, template) {
     if (event.type == 'click' || event.which === 13) {
       var name = template.find("input").value;
 			Devices.update({_id: template.data._id}, {$set: { 'name': name }});
 			Session.set("edit-" + this._id, false);
 			event.stopImmediatePropagation();
     }
+  },
+  'click button.editCode': function(event, template) {
+  	Session.set("page", "editor");
+  	Session.set("editedDoc", template.data._id);
   }
 });
 

@@ -1,5 +1,5 @@
-var editedDocId = '42';
 var saveTimeout;
+var editedDoc;
 var codeMirror;
 var lastSaved;
 var lastSaveError;
@@ -18,7 +18,7 @@ var saveMessageInterval = setInterval(function() {
     }
     else {
       Session.set("saveMessageClass", "muted");
-      Session.set("Saving...");      
+      Session.set("Saving...");
     }
   }
   else if (lastSaved) {
@@ -40,7 +40,7 @@ codeHasChanged = function() {
 }
 
 saveCode = function() {
-  Codes.update({_id: editedDocId}, 
+  Devices.update({_id: editedDoc},
     {$set: { 'code': codeMirror.doc.getValue() }},
     function(error) {
       if (error) {
@@ -57,38 +57,21 @@ saveCode = function() {
     );
 }
 
-Template.editor.created = function(template) {
-  Codes.find({_id: editedDocId}).observe({
-    'added': function(document, beforeIndex) {
-      if (codeMirror) {
-        // disable event during change
-        codeMirror.off('change', codeHasChanged);
-        codeMirror.doc.setValue(document.code);
-        codeMirror.on('change', codeHasChanged);
-      }
-    },
-    'changed': function(newDocument, atIndex, oldDocument) {
-      if (codeMirror) {
-        if (codeMirror.doc.getValue() != newDocument.code) {
-          // disable event during change
-          codeMirror.off('change', codeHasChanged);
-          codeMirror.doc.setValue(newDocument.code);
-          codeMirror.on('change', codeHasChanged);
-        }
-      }
-    }
-  });
-}
+var documentWatcherHandle;
 
 Template.editor.rendered = function(template) {
   if (!codeMirror) {
-    code = Codes.findOne({_id: editedDocId});
-    
-    if (code == null) code={ code: "Loading..." };
-    
-    codeMirror = CodeMirror(this.find("#code-editor"), 
+    if (!Session.get("editedDoc")) {
+      var d = Devices.findOne({}, { sort: { 'lastSeen': -1 }});
+      if (d)
+        Session.set("editedDoc", d._id);
+      else
+        Session.set("page", "dashboard");
+    }
+    editedDoc = Session.get("editedDoc");
+    codeMirror = CodeMirror(this.find("#code-editor"),
       {
-        'value': code.code,
+        'value': "Loading...",
         'mode': "javascript",
         'lineNumbers': true,
         'lineWrapping': true,
@@ -98,13 +81,47 @@ Template.editor.rendered = function(template) {
         'extraKeys': {"Enter": "newlineAndIndentContinueComment"}
       });
     codeMirror.on('change', codeHasChanged);
+
+    /* Watch the device object to update the code window when code is changed */
+    documentWatcherHandle = Devices.find({_id: editedDoc}).observeChanges({
+      'added': function(id, fields) {
+        if (codeMirror) {
+          // disable event during change
+          codeMirror.off('change', codeHasChanged);
+          if ('code' in fields)
+            codeMirror.doc.setValue(fields.code);
+          else
+            codeMirror.doc.setValue('');
+          codeMirror.on('change', codeHasChanged);
+        }
+      },
+      'changed': function(id, fields) {
+        if (codeMirror && 'code' in fields) {
+          if (codeMirror.doc.getValue() != fields.code) {
+            // disable event during change
+            codeMirror.off('change', codeHasChanged);
+            codeMirror.doc.setValue(fields.code);
+            codeMirror.on('change', codeHasChanged);
+          }
+        }
+      }
+    });
   }
 }
 Template.editor.destroyed = function(template) {
-  console.log("destroyed");
+  documentWatcherHandle.stop();
   codeMirror = null;
 }
-
+Template.codeToolbar.deviceName = function() {
+  var d = Devices.findOne({_id: Session.get("editedDoc")});
+  if (d)
+    return d.name;
+  else
+    return "";
+}
+Template.codeToolbar.devices = function() {
+  return Devices.find({}, { sort: { 'lastSeen': -1 }});
+}
 Template.saveMessage.saveMessage = function() {
   return Session.get("saveMessage");
 }

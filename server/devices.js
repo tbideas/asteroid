@@ -17,9 +17,15 @@ Meteor.startup(function(){
 					return true;
 				}
 			}
+			/* Update the code of a device */
+			if (fields.length == 1 && fields[0] == "code") {
+				if (device.user === Meteor.userId()) {
+					return true;
+				}
+			}
 
 			console.log("Devices.update() denied");
-			console.log(docs);
+			console.log(device);
 			console.log(fields);
 			console.log(modifier);
 
