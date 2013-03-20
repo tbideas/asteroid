@@ -100,6 +100,10 @@ Template.editor.rendered = function(template) {
     codeMirror.on('change', codeHasChanged);
   }
 }
+Template.editor.destroyed = function(template) {
+  console.log("destroyed");
+  codeMirror = null;
+}
 
 Template.saveMessage.saveMessage = function() {
   return Session.get("saveMessage");
