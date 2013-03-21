@@ -13,7 +13,7 @@ function gotoPage(page) {
 }
 
 function currentPage() {
-  Session.get("page");
+  return Session.get("page");
 }
 
 /* Private */
