@@ -7,9 +7,9 @@ Template.page.created = function() {
 
 /* Publicly available functions */
 
-function gotoPage(page) {
-  Session.set("page", page);
-  analytics.page('/' + page);
+function gotoPage(path) {
+  Session.set("page", path);
+  analytics.page('/' + path);
 }
 
 function currentPage() {
@@ -21,60 +21,101 @@ function currentPage() {
 var pijsNavigation = [
   {
     'title': "Home",
-    'page': 'home',
+    'path': 'home',
     'logged': false,
     'render': function() { return Template.home() }
   },
   {
     'title': "Dashboard",
-    'page': 'dashboard',
+    'path': 'dashboard',
     'logged': true,
     'render': function() { return Template.dashboard() }
   },
   {
     'title': "Editor",
-    'page': 'editor',
+    'path': 'editor',
     'logged': true,
     'render': function() { return Template.editor() }
   },
   {
     'title': "Documentation",
-    'page': 'doc',
+    'subitems': [
+      {
+        'title': "Getting Started",
+        'path': 'doc',
+        'render': function() { return Template.doc() }
+      },
+      {
+        'title': "Examples",
+        'path': 'examples',
+        'render': function() { return Template.examples() }
+      },
+    ],
     'logged': false,
     'render': function() { return Template.doc() }
   }
 ];
 
-function navForPage(page) {
-  for (var i = 0; i < pijsNavigation.length; i++) {
-    if (pijsNavigation[i].page === page) return pijsNavigation[i];
+function findPageInNavigation(navigation, path) {
+  for (var i = 0; i < navigation.length; i++) {
+    if (navigation[i].path == path)
+      return navigation[i];
+    if (navigation[i].subitems) {
+      var subSearch = findPageInNavigation(navigation[i].subitems, path);
+
+      if (subSearch)
+        return subSearch;
+    }
   }
   return undefined;
 }
 
+function getCurrentPage() {
+  var page = findPageInNavigation(pijsNavigation, currentPage());
+
+  // Default
+  if (!page)
+    return pijsNavigation[0];
+
+  // Check that user is authorized to see this page
+  if (page.logged && !Meteor.user())
+    return pijsNavigation[0];
+
+  return page;
+}
+
 Template.page.content = function() {
-  var nav = navForPage(currentPage());
-  if (!nav)
-    return Template.home();
-  if (nav.logged && !Meteor.user())
-    return Template.home();
-  return nav.render();
+  var page = getCurrentPage();
+  return page.render();
 };
+
 Template.nav.navLinks = function() {
   if (Meteor.user())
     return pijsNavigation;
   else
     return pijsNavigation.filter(function(e) { return e.logged == false} );
 }
+
+Template.navLink.hasSubItems = function() {
+  return this.subitems && this.subitems.length > 0;
+}
+
 Template.navLink.navClass = function() {
-  if (currentPage() === undefined && this.page === "home")
+  var currentPage = getCurrentPage();
+
+  if (this.path === currentPage.path)
     return "active";
-  if (this.page === currentPage())
-    return "active";
+
+  if (this.subitems)
+    if (findPageInNavigation(this.subitems, currentPage.path))
+      return "active"
+
   return "";
 }
+
 Template.navLink.events({
   'click': function(event, template) {
-    gotoPage(template.data.page);
+    if (!template.data.subitems || template.data.subitems.length == 0)
+      gotoPage(template.data.path);
   }
 });

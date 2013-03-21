@@ -47,8 +47,22 @@
     {{>navUser }}
   </ul>
 </template>
+
 <template name="navLink">
-  <li class="{{navClass}}"><a href="#">{{ title }}</a></li>
+  {{#if hasSubItems }}
+    <li class="dropdown {{navClass}}">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        {{ title }}<b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        {{#each subitems }}
+          {{>navLink}}
+        {{/each}}
+      </ul>
+    </li>
+  {{ else }}
+    <li class="{{navClass}}"><a href="#">{{ title }}</a></li>
+  {{/if }}
 </template>
 
 <template name="page">
