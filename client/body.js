@@ -18,10 +18,16 @@ var pijsNavigation = [
     'render': function() { return Template.dashboard() }
   },
   {
-    'title': "Editor", 
+    'title': "Editor",
     'page': 'editor',
     'logged': true,
     'render': function() { return Template.editor() }
+  },
+  {
+    'title': "Documentation",
+    'page': 'doc',
+    'logged': false,
+    'render': function() { return Template.doc() }
   }
 ];
 
