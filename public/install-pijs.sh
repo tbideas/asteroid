@@ -1,28 +1,27 @@
 #!/bin/sh
 
-NODE_VERSION=v0.10.0
-NODE_JS=http://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION.tar.gz
-PING_INSTALL_1='http://io.tbideas.com/pijs/installing'
+VERSION=dev-0.0.1
+PRECOMPILED=http://pijs.s3.amazonaws.com/pijs-precompiled-$VERSION.tar.gz
+
+PING_INSTALL_1='http://io.tbideas.com/pijs/installing?precompiled=true'
 PING_INSTALL_2='http://io.tbideas.com/pijs/install-done'
 
-echo "# Installing piJS on this Raspberry Pi..."
+echo "# Installing piJS on this Raspberry Pi... (using precompiled binaries)"
 
 echo "## Pinging stat server to record a new installation... (no personal info sent)"
 curl $PING_INSTALL_1
 
 echo "## Downloading nodejs"
-curl $NODE_JS -o /tmp/nodejs.tar.gz
+curl $PRECOMPILED -o /tmp/pijs-precompiled.tar.gz
 
-echo "## Installing nodejs ... this will take a while"
-cd /tmp && tar zxvf nodejs.tar.gz
-cd node-$NODE_VERSION
-./configure && make && sudo make install
+echo "## Installing nodejs and dependencies"
+cd / && sudo tar zxvf /tmp/pijs-precompiled.tar.gz
 
-echo "## Installing dependencies"
-/usr/local/bin/npm -g install pijs
-
-echo "## Adding automatic startup script (/etc/init.d/pijs)"
-cp /usr/local/node
+echo "Configuring auto-start"
+sudo cp /usr/local/lib/node_modules/pi-steroid/pi-steroid-boot.sh /etc/init.d/pi-steroid
+sudo chmod +x /etc/init.d/pi-steroid
+sudo update-rc.d pi-steroid defaults
+sudo /etc/init.d/pi-steroid start
 
 echo "# Installation finished! Pinging stat server"
 curl $PING_INSTALL_2

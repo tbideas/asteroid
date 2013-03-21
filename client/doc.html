@@ -49,12 +49,16 @@ password: raspberry
           Find your Raspberry Pi IP address (you may have to ping different addresses until you find it, for example if your computer is 192.168.1.3, try 192.168.1.4, 192.168.1.5 etc) and then use SSH to connect:
           <pre>ssh -l pi &lt;pi address&gt;</pre>
 
-        <h3>4. Install pi js on your Raspberry Pi</h3>
+        <h3>4. Install pi js on your Raspberry Pi with the pre-compiled binaries</h3>
         <p>Type the following command:
 <pre>
 curl http://www.pijs.io/install-pijs.sh |bash
 </pre>
         Your Raspberry Pi will download the necessary components, compile them and install them. This may take up to two hours. When done, the pijs client will start automatically.</p>
+
+        <h4>4. (Alternative) Compile from source</h4>
+        <p>If for some reason the pre-compiled version does not work, you can use this script to download the components and compile everything from source. It will take between 2 and 3 hours.</p>
+        <pre>curl http://www.pijs.io/install-recompile-pijs.sh |bash</pre>
 
         <h3>5. Start programming in the cloud!</h3>
         <p>If you have not done so yet, create an account on pijs.io and click on the "Add Device" button. Your Raspberry Pi should automatically appear in the list of available devices. Click on: <button class="btn"><i class="icon-plus-sign"></i></button> and give a name to your Raspberry Pi (like Thomas'Pi or "Pi in the kitchen").<br>
