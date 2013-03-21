@@ -1,8 +1,14 @@
-Asteroid - A cloud service for smart devices
+# Asteroid
 
-# Installation
+Asteroid is a cloud service for smart devices.
 
-This project uses the [Meteor framework](www.meteor.com).
+The current version allows Raspberry Pi owners to control their Raspberry Pi from the cloud and to write programs in JavaScript that are executed on the Raspberry Pi.
+
+The easiest way to test Asteroid is to use it on: [pijs.io](http://www.pijs.io), the free hosted version.
+
+## Installation
+
+This project uses the [Meteor framework](http://www.meteor.com).
 
 To install meteor:
 
@@ -10,9 +16,10 @@ To install meteor:
 
 To run the project on your computer:
 
-    $ meteor
+    git clone
+    asteroid $ meteor
 
-# License
+## License
 
 MIT License
 
