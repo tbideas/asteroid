@@ -16,7 +16,7 @@ Accounts.loginServiceConfiguration.remove({
   if (Meteor.settings.github) {
   Accounts.loginServiceConfiguration.insert({
     service: "github",
-    appId: Meteor.settings.github.token,
+    clientId: Meteor.settings.github.token,
     secret: Meteor.settings.github.key
   });
 }
