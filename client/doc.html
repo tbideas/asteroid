@@ -37,14 +37,24 @@ $ sudo dd bs=1m if=2013-02-09-wheezy-raspbian.img of=/dev/disk2
         <p>There are several ways to do this.</p>
 
         <h4>With a keyboard and a screen</h4>
-        <p>Simply login with the username: "pi" and the password "raspberry".</p>
+        <p>Simply login with the username: "pi" and the password "raspberry".
+          <pre>
+login: pi
+password: raspberry
+</pre>
+        </p>
 
         <h4>Through the network</h4>
         <p>If your Raspberry Pi is plugged to the network via an ethernet cable, you can login with SSH.<br>
-          Find your Raspberry Pi IP address (you may have to ping different addresses until you find it, for example if your computer is 192.168.1.3, try 192.168.1.4, 192.168.1.5 etc) and <code>ssh -l pi &lt;pi address&gt;</code>
+          Find your Raspberry Pi IP address (you may have to ping different addresses until you find it, for example if your computer is 192.168.1.3, try 192.168.1.4, 192.168.1.5 etc) and then use SSH to connect:
+          <pre>ssh -l pi &lt;pi address&gt;</pre>
 
         <h3>4. Install pi js on your Raspberry Pi</h3>
-        <p>Type the following command: <code>curl http://www.pijs.io/install-pijs.sh |bash</code><br>Your Raspberry Pi will download the necessary components, compile them and install them. This may take up to two hours. When done, the pijs client will start automatically.</p>
+        <p>Type the following command:
+<pre>
+curl http://www.pijs.io/install-pijs.sh |bash
+</pre>
+        Your Raspberry Pi will download the necessary components, compile them and install them. This may take up to two hours. When done, the pijs client will start automatically.</p>
 
         <h3>5. Start programming in the cloud!</h3>
         <p>If you have not done so yet, create an account on pijs.io and click on the "Add Device" button. Your Raspberry Pi should automatically appear in the list of available devices. Click on: <button class="btn"><i class="icon-plus-sign"></i></button> and give a name to your Raspberry Pi (like Thomas'Pi or "Pi in the kitchen").<br>

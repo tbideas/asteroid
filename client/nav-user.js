@@ -6,6 +6,8 @@ socialLoginCallback = function(error) {
     console.log("Social login error: " + error);
     Session.set("loginError", error.toString());
   }
+  else
+    gotoPage('dashboard');
 };
 Template.userLoggedOut.events({
   "click .dropdown-toggle": function(e) {
@@ -37,20 +39,23 @@ Template.userLoggedOut.events({
     analytics.event("Signup+Login", "Signin Github");
     return false;
   },
-  
+
   "submit form": function(event, template) {
     var email = template.find("#email").value;
     Session.set("loginError", null);
-    
+
     /* Login with email and password */
     if (!Session.get("userForm") || Session.get("userForm") == "login") {
       var password = template.find("#password").value;
       Meteor.loginWithPassword(email, password, function (error) {
-        if (error) Session.set("loginError", error.reason);
+        if (error)
+          Session.set("loginError", error.reason);
+        else
+          gotoPage('dashboard');
       });
       analytics.event("Signup+Login", "Signin password");
     }
-    
+
     /* New user signing in with email and password */
     if (Session.get("userForm") == "signin") {
       var password = template.find("#password").value;
@@ -59,11 +64,14 @@ Template.userLoggedOut.events({
         'email': email,
         'password': password
       }, function(error) {
-        if (error) Session.set("loginError", error.reason);
+        if
+          (error) Session.set("loginError", error.reason);
+        else
+          gotoPage('dashboard');
       });
       analytics.event("Signup+Login", "Signup with password");
     }
-    
+
     /* User forgot his email */
     if (Session.get("userForm") == "forgot") {
       Accounts.forgotPassword({ 'email': email }, function(error) {

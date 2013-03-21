@@ -63,10 +63,14 @@ Template.editor.rendered = function(template) {
   if (!codeMirror) {
     if (!Session.get("editedDoc")) {
       var d = Devices.findOne({}, { sort: { 'lastSeen': -1 }});
-      if (d)
+      if (d) {
         Session.set("editedDoc", d._id);
-      else
-        Session.set("page", "dashboard");
+        Session.set('editorDisabled', false);
+      }
+      else {
+        Session.set('editorDisabled', true);
+        return;
+      }
     }
     editedDoc = Session.get("editedDoc");
     codeMirror = CodeMirror(this.find("#code-editor"),
@@ -109,9 +113,18 @@ Template.editor.rendered = function(template) {
   }
 }
 Template.editor.destroyed = function(template) {
-  documentWatcherHandle.stop();
+  if (documentWatcherHandle)
+    documentWatcherHandle.stop();
   codeMirror = null;
 }
+Template.editor.enabled = function(template) {
+  return Session.get("editorDisabled") != true;
+}
+Template.editor.events({
+  "click a[name='gettingstarted']": function() {
+    gotoPage("doc");
+  }
+});
 Template.codeToolbar.deviceName = function() {
   var d = Devices.findOne({_id: Session.get("editedDoc")});
   if (d)

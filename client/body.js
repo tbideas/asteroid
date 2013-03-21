@@ -1,8 +1,22 @@
 Template.page.created = function() {
   analytics.init();
+  analytics.page('/');
 };
 
 /* A very simple router */
+
+/* Publicly available functions */
+
+function gotoPage(page) {
+  Session.set("page", page);
+  analytics.page('/' + page);
+}
+
+function currentPage() {
+  Session.get("page");
+}
+
+/* Private */
 
 var pijsNavigation = [
   {
@@ -39,7 +53,7 @@ function navForPage(page) {
 }
 
 Template.page.content = function() {
-  var nav = navForPage(Session.get("page"));
+  var nav = navForPage(currentPage());
   if (!nav)
     return Template.home();
   if (nav.logged && !Meteor.user())
@@ -53,14 +67,14 @@ Template.nav.navLinks = function() {
     return pijsNavigation.filter(function(e) { return e.logged == false} );
 }
 Template.navLink.navClass = function() {
-  if (Session.get('page') === undefined && this.page === "home")
+  if (currentPage() === undefined && this.page === "home")
     return "active";
-  if (this.page === Session.get("page"))
+  if (this.page === currentPage())
     return "active";
   return "";
 }
 Template.navLink.events({
   'click': function(event, template) {
-    Session.set("page", template.data.page);
+    gotoPage(template.data.page);
   }
 });

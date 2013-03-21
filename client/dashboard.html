@@ -12,7 +12,7 @@
       <div class="span9">
         <div class="row">
           <div class="span9">
-          <h2>Your devices</h2>
+          <h2>Your Raspberry Pis</h2>
           {{> deviceList }}
           </div>
         </div>
@@ -35,9 +35,12 @@
       </tbody>
     </table>
   {{ else }}
-    <p>You do not have any device yet.</p>
+    <p>You have not added any Raspberry Pi yet. </p>
   {{/if}}
   <p><span class="btn addDevice">Add new device</span></p>
+  {{#unless hasDevices}}
+    <p><em>You need to download the piJS client on your Raspberry Pi before you can program it through pijs.io. Please <a href="#" name="gettingstarted">follow our getting started guide</a>.</em></p>
+  {{/unless}}
 </template>
 
 <template name="device">
@@ -62,7 +65,7 @@
   <div id="addDeviceModal" class="modal hide fade">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h3>Add a new device</h3>
+      <h3>Claim your Raspberry Pi</h3>
     </div>
     <div class="modal-body">
       {{> addDeviceModalBody }}
@@ -92,10 +95,16 @@
         {{/each}}
       </tbody>
     </table>
-  {{else}}
-    <p class="text-center">You can now turn on your compatible device. When your device connects, it will appear here.</p>
   {{/if}}
+
   <p class="pagination-centered"><img src="/img/ajax-loader.gif"></p>
+
+  {{#unless hasDevices}}
+    <p>
+      You can now turn on your Raspberry Pi with piJS client installed.<br>
+      When your device connects, it will appear here.
+    </p>
+  {{/unless}}
 </template>
 
 <template name="newDevice">

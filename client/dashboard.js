@@ -1,5 +1,3 @@
-Template.dashboard.rendered = function() { analytics.page('/dashboard'); }
-
 Template.deviceList.devices = function() {
 	return Devices.findUserDevices();
 };
@@ -10,7 +8,10 @@ Template.deviceList.events({
 	'click .addDevice': function(event, template) {
 		$('#addDeviceModal').modal();
 		analytics.event("Dashboard", "New device wizard");
-	}
+	},
+  "click a[name='gettingstarted']": function (event, template) {
+    gotoPage('doc');
+  }
 });
 Template.device.rowClass = function(status) {
 	switch (status) {
@@ -44,8 +45,8 @@ Template.device.events({
     }
   },
   'click button.editCode': function(event, template) {
-  	Session.set("page", "editor");
   	Session.set("editedDoc", template.data._id);
+    gotoPage('editor');
   }
 });
 
