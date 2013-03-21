@@ -11,9 +11,9 @@
         <h3>1. Prepare a Raspbian SD Card</h2>
 
         <ul>
-          <li>Download the latest Raspbian image from the official Raspberry Pi site</li>
-          <li>Write this image to an SD Card (http://elinux.org/RPi_Easy_SD_Card_Setup)
-            <br> On a mac:
+          <li>Download the latest Raspbian image from the <a href="http://www.raspberrypi.org/downloads">official Raspberry Pi site</a></li>
+          <li>Follow <a href="http://elinux.org/RPi_Easy_SD_Card_Setup">elinux.org's detailed instructions for Mac/PC/Linux</a> to burn this image onto an SD Card.
+            <h4>Example on a Mac</h4>
        <pre>
 # Find the identifier of your sd card: disk2 or disk3 probably.
 $ diskutil list
@@ -23,10 +23,11 @@ $ sudo diskutil unmountDisk /dev/disk2
 
 # Use the image that you have downloaded to erase the sd card
 $ sudo dd bs=1m if=2013-02-09-wheezy-raspbian.img of=/dev/disk2
+
+# Eject the disk - you are done!
        </pre>
             <em>You will have to wait for a little while. You can press Ctrl-T to get a report on how much information has been copied to the card and how fast it is going.</em>
           </li>
-          <li>Eject the disk and you are done!</li>
         </ul>
 
         <h3>2. Boot your new Raspberry Pi</h3>
@@ -70,5 +71,62 @@ curl http://www.pijs.io/install-pijs.sh |bash
 </template>
 
 <template name="examples">
-  Add examples here please.
+  <div class="container">
+    <div class="row">
+      <div class="span8 offset1">
+        <h2>Examples</h2>
+
+        <h3>Hello World</h3>
+<pre>
+console.log("Hello, World!");
+</pre>
+<hr/>
+        <h3>Control the color of an RGB led to warn you of the minutes passing by</h3>
+        <pre>
+/*
+ * Sample code: Changes the color of an RGB led depending on the
+ * current time.
+ */
+
+function setColor(red, green, blue) {
+  console.log(util.format("setColor: %d %d %d", red, green, blue));
+  piblaster.setPwm(1, red);
+  piblaster.setPwm(2, green);
+  piblaster.setPwm(4, blue);
+
+
+  // Enable the led if we have a value > 0
+  if (red &gt; 0 || green &gt; 0 || blue &gt; 0) {
+    piblaster.setPwm(0, 1);
+  }
+  // Otherwise disable it
+  else {
+    piblaster.setPwm(0, 0);
+  }
+}
+
+var SEC_PER_MIN = 10;
+setInterval(function() {
+  var d = new Date();
+  var intensity = 0;
+
+  if (d.getSeconds() &gt; 60 - SEC_PER_MIN) {
+    intensity = 1 - (60 - d.getSeconds()) / SEC_PER_MIN;
+  }
+  switch (d.getMinutes() % 3) {
+    case 0:
+      setColor(intensity, 0, 0);
+      break;
+    case 1:
+      setColor(0, intensity, 0);
+      break;
+    case 2:
+      setColor(0, 0, intensity);
+      break;
+  }
+}, 500);
+</pre>
+      </div>
+    </div>
+  </div>
 </template>
