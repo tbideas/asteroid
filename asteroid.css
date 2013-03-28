@@ -22,7 +22,7 @@ body {
   margin: 10px 10px 2px 10px;
 }
 .user-form .btn-primary {
-  width: 100%; 
+  width: 100%;
   padding-bottom:0px;
   height: 2.5em;
 }
@@ -40,6 +40,22 @@ body {
 }
 .user-form .more-logins button{
   width: 30%;
+}
+
+/* Dashboard */
+.dashboard td {
+  vertical-align: baseline;
+}
+
+body #logModal {
+  width: 80%; /* desired relative width */
+  left: 10%; /* (100%-width)/2 */
+  margin: auto auto auto auto; /* place center */
+}
+
+pre.log {
+  text-align: left;
+  line-height: 10px;
 }
 
 /* Editor page */

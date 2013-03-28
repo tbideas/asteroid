@@ -1,7 +1,8 @@
 <template name="dashboard">
   {{> addDeviceModal }}
+  {{> logModal }}
 
-  <div class="container">
+  <div class="container dashboard">
     <div class="page-header">
       <h1>Dashboard</h1>
     </div>
@@ -57,7 +58,20 @@
     </td>
     <td><pre>{{ software }} - {{ version }}</pre></td>
     <td>{{ lastSeen }}</td>
-    <td><button class="btn editCode">Edit Code</button></td>
+    <td>
+      <button class="btn editCode">Edit Code</button>
+      <button class="btn viewLogs"><i class="icon-list-alt"></i></button>
+      <button class="btn deleteLogs"><i class="icon-remove"></i></button>
+    </td>
+  </tr>
+  <tr class="{{ rowClass status }}">
+    <td class="deviceLogs" colspan="4">
+      <pre class="log">
+        {{#each logs}}
+{{> logLine }}
+        {{/each}}
+      </pre>
+    </td>
   </tr>
 </template>
 
@@ -114,4 +128,24 @@
     <td>{{ software }} - {{ version }}</td>
     <td><button class="btn pull-right"><i class="icon-plus-sign"></i></button></td>
   </tr>
+</template>
+
+<template name="logModal">
+  <div id="logModal" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Logs for {{ deviceName }}</h3>
+    </div>
+    <div class="modal-body">
+      <pre class="log">
+        {{#each logs}}
+{{>logLine}}
+        {{/each}}
+      </pre>
+    </div>
+  </div>
+</template>
+
+<template name="logLine">
+{{ ts }} [{{ level }}] {{ message }}
 </template>

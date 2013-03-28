@@ -32,6 +32,12 @@ Template.device.name = function() {
 Template.device.lastSeen = function() {
 	return moment(this.lastSeen).fromNow();
 }
+Template.device.logs = function() {
+  return DeviceLogs.find({deviceId: this._id }, { sort: { ts: -1}, limit: 3 }).fetch().reverse();
+}
+
+var deviceLogsHandle;
+
 Template.device.events({
 	'click td.deviceName': function (evt, template) {
 		Session.set("edit-" + this._id, true);
@@ -47,6 +53,15 @@ Template.device.events({
   'click button.editCode': function(event, template) {
   	Session.set("editedDoc", template.data._id);
     gotoPage('editor');
+  },
+  'click button.viewLogs': function(event, template) {
+    Session.set("logModalDevice", template.data);
+    $('#logModal').modal();
+    analytics.event("Dashboard", "View logs");
+  },
+  'click button.deleteLogs': function(event, template) {
+    analytics.event("Dashboard", "Delete logs");
+    Meteor.call('deleteDeviceLogs', template.data);
   }
 });
 
@@ -70,3 +85,22 @@ Template.newDevice.events({
 		$('addDeviceModal').modal('hide');
 	}
 });
+
+Template.logModal.deviceName = function() {
+  var logModalDevice = Session.get("logModalDevice");
+  if (logModalDevice)
+    return logModalDevice.name;
+  else
+    return "";
+}
+Template.logModal.logs = function() {
+  var logModalDevice = Session.get("logModalDevice");
+
+  if (logModalDevice)
+    return DeviceLogs.find({deviceId: logModalDevice._id});
+  else
+    return [];
+}
+Template.logLine.ts = function() {
+  return moment(this.ts).format();
+}
