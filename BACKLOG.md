@@ -6,10 +6,6 @@
 
  * User can write a script that calls require()
 
- * User can open/edit/save pieces of source code as named-files
-
- * User can select which code to run on a device and launch it with a button
-
 Small todos:
 
  * Make sure first screen is home (and not doc)
@@ -22,6 +18,10 @@ Small todos:
 
 
 ## To be confirmed
+
+ * User can open/edit/save pieces of source code as named-files
+
+ * User can select which code to run on a device and launch it with a button
 
  * By default - create a Hello World script for new connected devices
 
