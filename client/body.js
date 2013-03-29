@@ -39,10 +39,11 @@ var pijsNavigation = [
   },
   {
     'title': "Documentation",
+    'path': 'doc',
     'subitems': [
       {
         'title': "Getting Started",
-        'path': 'doc',
+        'path': 'gettingstarted',
         'render': function() { return Template.doc() }
       },
       {
