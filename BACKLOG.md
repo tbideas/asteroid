@@ -6,15 +6,6 @@
 
  * User can write a script that calls require()
 
-Small todos:
-
-
- * In doc.4: say it's should take less than 5 minutes
-
- * Check google analytics
-
- * Check email password recovery
-
 
 ## To be confirmed
 
@@ -36,6 +27,12 @@ Small todos:
 
 
 # Implemented
+
+ * Check email password recovery
+
+ * Check google analytics
+
+ * In doc.4: say it's should take less than 5 minutes
 
  * Make sure first screen is home (and not doc)
 
