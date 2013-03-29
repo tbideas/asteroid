@@ -8,7 +8,6 @@
 
 Small todos:
 
- * Make sure first screen is home (and not doc)
 
  * In doc.4: say it's should take less than 5 minutes
 
@@ -37,6 +36,8 @@ Small todos:
 
 
 # Implemented
+
+ * Make sure first screen is home (and not doc)
 
  * User can watch the console output in real-time
 
