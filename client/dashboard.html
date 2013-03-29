@@ -18,6 +18,7 @@
           </div>
         </div>
       </div>
+      {{>sidebar}}
     </div>
 
   </div>
@@ -148,4 +149,24 @@
 
 <template name="logLine">
 {{ ts }} [{{ level }}] {{ message }}
+</template>
+
+<template name="sidebar">
+  <div class="span3">
+    <div class="well">
+    {{#if hasDevices }}
+      <h3>Running code on your Pi</h3>
+      <p>Now that you have added a device, just click on <button class="btn">Edit code</button> next to it and start writing JavaScript.</p>
+      <p>In piJS, each device is associated to its code and it will automatically run it every time it connects to the server - or every time you change the code: no need to save, just stop typing and your code is pushed to the device.</p>
+      <h4>Want to run some code at regular intervals?</h4>
+      <p>It is very easy with <code>setInterval(function() { }, time)</code>: your code will run every <code>time</code> milliseconds.</p>
+      <h4>How about logs?</h4>
+      <p>The output of your code (<code>console.log()</code>) is pushed in realtime to the cloud and the three most recent lines appear in your dashboard. You can view your complete logs with the button: <button class="btn viewLogs"><i class="icon-list-alt"></i></button>.</p>
+      <p>Remember to clean up the logs sometimes with the <button class="btn deleteLogs"><i class="icon-remove"></i></button> button.
+    {{else}}
+      <h3>Adding device to your dashboard</h3>
+      <p>Before you can control and program your Raspberry Pi through pijs.io, you need to install a little piece of software on your Raspberry Pi that will connect it to this cloud platform.</p>
+      <p>Follow the instructions in our Getting Started guide, it will only take a few minutes.</p>
+    {{/if}}
+  </div>
 </template>

@@ -23,10 +23,11 @@ var saveMessageInterval = setInterval(function() {
   }
   else if (lastSaved) {
     Session.set("saveMessageClass", "muted");
-    Session.set("saveMessage", "Saved " + moment(lastSaved).fromNow())
+    Session.set("saveMessage", "Saved and Published " + moment(lastSaved).fromNow())
   }
   else {
-    Session.set("saveMessage", "");
+    Session.set("saveMessageClass", "muted");
+    Session.set("saveMessage", "Start typing: your code will be automatically saved and published to your Raspberry Pi.");
   }
 }, 1000);
 
@@ -141,3 +142,12 @@ Template.saveMessage.saveMessage = function() {
 Template.saveMessage.saveMessageClass = function() {
   return Session.get("saveMessageClass");
 }
+Template.console.logs = function() {
+  return DeviceLogs.tailLogs(Session.get("editedDoc"), 10);
+}
+Template.console.events({
+  'click .clearConsole': function() {
+    analytics.event("Editor", "Clear console");
+    Meteor.call('deleteDeviceLogs', Session.get("editedDoc"));
+  }
+});

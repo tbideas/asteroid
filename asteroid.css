@@ -79,3 +79,7 @@ pre.log {
   line-height: 2;
   margin-right: 1em;
 }
+#code-editor {
+  min-height: 100px;
+  margin-bottom: 20px;
+}

@@ -1,9 +1,9 @@
 Meteor.methods({
-  'deleteDeviceLogs': function(aDevice) {
+  'deleteDeviceLogs': function(aDeviceId) {
     var userId = (typeof userId === "undefined") ? Meteor.userId() : userId;
 
     // First let's make sure that the device actually belongs to the user.
-    var device = Devices.findOne({ _id: aDevice._id });
+    var device = Devices.findOne({ _id: aDeviceId });
     if (device.user != userId) {
       console.warn("User trying to delete logs of a device he does not own! User: %s Device: %j", userId, device);
       return false;

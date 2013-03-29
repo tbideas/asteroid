@@ -4,6 +4,8 @@ Template.deviceList.devices = function() {
 Template.deviceList.hasDevices = function() {
 	return Devices.findUserDevices().count() > 0;
 };
+Template.sidebar.hasDevices = Template.deviceList.hasDevices;
+
 Template.deviceList.events({
 	'click .addDevice': function(event, template) {
 		$('#addDeviceModal').modal();
@@ -33,7 +35,7 @@ Template.device.lastSeen = function() {
 	return moment(this.lastSeen).fromNow();
 }
 Template.device.logs = function() {
-  return DeviceLogs.find({deviceId: this._id }, { sort: { ts: -1}, limit: 3 }).fetch().reverse();
+  return DeviceLogs.tailLogs(this._id, 3);
 }
 
 var deviceLogsHandle;
@@ -61,7 +63,7 @@ Template.device.events({
   },
   'click button.deleteLogs': function(event, template) {
     analytics.event("Dashboard", "Delete logs");
-    Meteor.call('deleteDeviceLogs', template.data);
+    Meteor.call('deleteDeviceLogs', template.data._id);
   }
 });
 

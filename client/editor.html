@@ -9,6 +9,11 @@
             {{> codeEditor }}
         </div>
       </div>
+      <div class="row">
+        <div class="span12">
+          {{> console }}
+        </div>
+      </div>
     {{ else }}
       <div class="row">
         &nbsp;
@@ -51,7 +56,7 @@
 
 <template name="codeEditor">
   {{#constant}}
-    <div id="code-editor" style="min-height: 100px;"></div>
+    <div id="code-editor"></div>
   {{/constant}}
 </template>
 
@@ -61,4 +66,15 @@
 
 <template name="deviceItem">
   <li><a href="#">{{ name }}</a></li>
+</template>
+
+<template name="console">
+  <div class="pull-right">
+    <button class="btn btn-danger clearConsole">Clear console</button>
+  </div>
+  <pre class="log">
+    {{#each logs}}
+{{>logLine}}
+    {{/each}}
+  </pre>
 </template>
