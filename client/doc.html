@@ -130,3 +130,28 @@ setInterval(function() {
     </div>
   </div>
 </template>
+
+<template name="faq">
+  <div class="container">
+    <div class="row">
+      <div class="span8 offset1">
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>How to enable Wifi on my Raspberry Pi?</h3>
+        <p>Get one of those <a target="_blank" href="http://www.amazon.com/gp/product/B005CLMJLU/">cheap wifi modules</a>, plug it in a USB port and then add four lines with your network configuration to the <code>wpa_supplicant.conf</code> file:
+        <pre>
+  pi@raspberrypi ~ $ sudo vi /etc/wpa_supplicant/wpa_supplicant.conf
+  ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+  update_config=1
+
+  network={
+    ssid="HERE_PUT_YOUR_SSID"
+    psk="AND_HERE_YOUR_WPA_KEY"
+  }
+  </pre>
+        <p>Now you can run <code>ifdown wlan0; ifup wlan0</code> to restart your wireless card and you are all set!</p>
+        <p>For more information, you can check out this <a target="_blank" href='http://learn.adafruit.com/adafruits-raspberry-pi-lesson-3-network-setup/setting-up-wifi-with-raspbian'>Adafruit post</a>.</p>
+      </div>
+    </div>
+  </div>
+</template>

@@ -51,6 +51,11 @@ var pijsNavigation = [
         'path': 'examples',
         'render': function() { return Template.examples() }
       },
+      {
+        'title': "FAQ",
+        'path': 'faq',
+        'render': function() { return Template.faq() }
+      },
     ],
     'logged': false,
     'render': function() { return Template.doc() }
