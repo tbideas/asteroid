@@ -2,10 +2,6 @@
 
 ## Planned use-cases
 
- * User gets a feedback in the console when an exception happened running the code
-
- * User can write a script that calls require()
-
 
 ## To be confirmed
 
@@ -27,6 +23,10 @@
 
 
 # Implemented
+
+ * User gets a feedback in the console when an exception happened running the code
+
+ * User can write a script that calls require()
 
  * Check email password recovery
 
