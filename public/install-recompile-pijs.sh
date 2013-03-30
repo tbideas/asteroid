@@ -20,7 +20,7 @@ cd node-$NODE_VERSION
 ./configure && make && sudo make install
 
 echo "## Installing dependencies"
-sudo /usr/local/bin/npm -g install pi-steroid
+sudo /usr/local/bin/npm -g install forever pi-steroid
 
 echo "Configuring auto-start"
 sudo cp /usr/local/lib/node_modules/pi-steroid/pi-steroid-boot.sh /etc/init.d/pi-steroid
