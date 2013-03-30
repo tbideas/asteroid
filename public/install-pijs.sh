@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=dev-0.0.1
+VERSION=0.0.2
 PRECOMPILED=http://pijs.s3.amazonaws.com/pijs-precompiled-$VERSION.tar.gz
 
 PING_INSTALL_1='http://io.tbideas.com/pijs/installing?precompiled=true'
@@ -11,7 +11,7 @@ echo "# Installing piJS on this Raspberry Pi... (using precompiled binaries)"
 echo "## Pinging stat server to record a new installation... (no personal info sent)"
 curl $PING_INSTALL_1
 
-echo "## Downloading nodejs"
+echo "## Downloading package with nodejs, pi-blaster and dependencies ..."
 curl $PRECOMPILED -o /tmp/pijs-precompiled.tar.gz
 
 echo "## Installing nodejs and dependencies"
