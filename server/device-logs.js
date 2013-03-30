@@ -33,5 +33,5 @@ Meteor.publish("devicelogs", function() {
   var userDevices = Devices.find({ user: this.userId }, { _id: 1}).fetch();
   var devicesId = _.pluck(userDevices, '_id');
   console.log("DeviceLogs, subscribing user: %s to devices: %j", this.userId, devicesId);
-  return DeviceLogs.find({deviceId: { '$in': devicesId} } );
+  return DeviceLogs.find({deviceId: { '$in': devicesId} }, { sort: { ts: -1}, limit: 100 } );
 });
