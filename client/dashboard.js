@@ -88,14 +88,14 @@ Template.newDevice.events({
 	}
 });
 
-Template.logModal.deviceName = function() {
+Template.logModalTitle.deviceName = function() {
   var logModalDevice = Session.get("logModalDevice");
   if (logModalDevice)
     return logModalDevice.name;
   else
     return "";
 }
-Template.logModal.logs = function() {
+Template.logModalContent.logs = function() {
   var logModalDevice = Session.get("logModalDevice");
 
   if (logModalDevice)

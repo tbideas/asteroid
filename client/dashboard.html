@@ -7,8 +7,6 @@
       <h1>Dashboard</h1>
     </div>
 
-
-
     <div class="row">
       <div class="span9">
         <div class="row">
@@ -135,16 +133,22 @@
   <div id="logModal" class="modal hide fade">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h3>Logs for {{ deviceName }}</h3>
+      {{> logModalTitle}}
     </div>
     <div class="modal-body">
-      <pre class="log">
-        {{#each logs}}
-{{>logLine}}
-        {{/each}}
-      </pre>
+      {{> logModalContent}}
     </div>
   </div>
+</template>
+<template name="logModalTitle">
+  <h3>Logs for {{ deviceName }}</h3>
+</template>
+<template name="logModalContent">
+  <pre class="log">
+    {{#each logs}}
+  {{>logLine}}
+    {{/each}}
+  </pre>
 </template>
 
 <template name="logLine">
