@@ -6,7 +6,7 @@ Meteor.startup(function(){
 		'update': function(userId, device, fields, modifier) {
 			/* Update userId of a device */
 			if (fields.length == 1 && fields[0] == "user") {
-				if (device.user === undefined)
+				if (device.user === undefined || device.user === null)
 					return true;
 				// TODO: Should also check that the IP addresses match
 				// TODO: Should check that the user is setting his own id and not someone else's
