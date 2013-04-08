@@ -38,8 +38,6 @@ Template.device.logs = function() {
   return DeviceLogs.tailLogs(this._id, 3);
 }
 
-var deviceLogsHandle;
-
 Template.device.events({
 	'click td.deviceName': function (evt, template) {
 		Session.set("edit-" + this._id, true);
