@@ -5,7 +5,7 @@ Accounts.loginServiceConfiguration.remove({
 if (Meteor.settings.twitter) {
   Accounts.loginServiceConfiguration.insert({
     service: "twitter",
-    appId: Meteor.settings.twitter.token,
+    consumerKey: Meteor.settings.twitter.token,
     secret: Meteor.settings.twitter.key
   });
 }
