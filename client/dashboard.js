@@ -82,6 +82,10 @@ Template.newDevice.events({
 	'click .btn': function() {
 	  analytics.event("Dashboard", "New device added");
 		Devices.update({'_id': this._id}, {$set:{user: Meteor.userId()}});
+    // We need to re-subscribe to logs - otherwise the logs of this new device
+    // are not included in the subscription
+    Meteor.subscribe("devicelogs");
+
 		$('addDeviceModal').modal('hide');
 	}
 });
