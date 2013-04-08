@@ -7,7 +7,7 @@ socialLoginCallback = function(error) {
     Session.set("loginError", error.toString());
   }
   else
-    gotoPage('dashboard');
+    router.gotoPage('dashboard');
 };
 Template.userLoggedOut.events({
   "click .dropdown-toggle": function(e) {
@@ -51,7 +51,7 @@ Template.userLoggedOut.events({
         if (error)
           Session.set("loginError", error.reason);
         else
-          gotoPage('dashboard');
+          router.gotoPage('dashboard');
       });
       analytics.event("Signup+Login", "Signin password");
     }
@@ -67,7 +67,7 @@ Template.userLoggedOut.events({
         if
           (error) Session.set("loginError", error.reason);
         else
-          gotoPage('dashboard');
+          router.gotoPage('dashboard');
       });
       analytics.event("Signup+Login", "Signup with password");
     }

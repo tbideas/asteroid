@@ -123,7 +123,7 @@ Template.editor.enabled = function(template) {
 }
 Template.editor.events({
   "click a[name='gettingstarted']": function() {
-    gotoPage("doc");
+    router.gotoPage("doc");
   }
 });
 Template.codeToolbar.deviceName = function() {

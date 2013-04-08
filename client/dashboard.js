@@ -12,7 +12,7 @@ Template.deviceList.events({
 		analytics.event("Dashboard", "New device wizard");
 	},
   "click a[name='gettingstarted']": function (event, template) {
-    gotoPage('doc');
+    router.gotoPage('doc');
   }
 });
 Template.device.rowClass = function(status) {
@@ -54,7 +54,7 @@ Template.device.events({
   },
   'click button.editCode': function(event, template) {
   	Session.set("editedDoc", template.data._id);
-    gotoPage('editor');
+    router.gotoPage('editor');
   },
   'click button.viewLogs': function(event, template) {
     Session.set("logModalDevice", template.data);
