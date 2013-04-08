@@ -1,7 +1,7 @@
-var mixpanelId = (Meteor.settings && Meteor.settings.public 
+var mixpanelId = (Meteor.settings && Meteor.settings.public
   && Meteor.settings.public.analytics) ?
   Meteor.settings.public.analytics.mixpanel : undefined;
-var gaAccount = (Meteor.settings && Meteor.settings.public 
+var gaAccount = (Meteor.settings && Meteor.settings.public
     && Meteor.settings.public.analytics) ?
   Meteor.settings.public.analytics.ga : undefined;
 
@@ -41,7 +41,7 @@ analytics = {
         mixpanel.identify(Meteor.user()._id);
         mixpanel.people.set({
             'username': getUserDisplayName(Meteor.user()),
-            '$last_login': new Date(), 
+            '$last_login': new Date(),
             '$created': moment(Meteor.user().createdAt)._d,
             '$email': currentUserEmail,
             'signup': getSignupMethod(Meteor.user())
@@ -70,7 +70,7 @@ analytics = {
     if (mixpanelId)
       analytics.mixpanel.init();
   },
-  'page': function(page) { 
+  'page': function(page) {
     if (gaAccount)
       analytics.ga.page(page);
     if (mixpanelId)
