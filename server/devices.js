@@ -1,8 +1,28 @@
 Meteor.startup(function(){
+  Devices.deny({
+    'update': function(userId, device, fields, modifier) {
+      console.log('Devices.deny(%j %j %j %j)', userId, device, fields, modifier)
+      if (_.contains(fields, 'user')) {
+        var registerDevice = Meteor.settings.emails && Meteor.settings.emails.registerDevice;
+
+        if (registerDevice) {
+          var content = 'Hi there!\n\n'
+            + 'A new device has been registed by user ' + getUserDisplayName(Meteor.user()) + '.\n\n'
+            + 'The new device is :\n' + JSON.stringify(device) + '\n\n'
+            + 'Have a nice day!\n'
+            + 'pijs.io';
+          Email.send({
+            to: registerDevice,
+            from: Meteor.settings.emails.from,
+            subject: '[pijs.io] New device registered by ' + getUserDisplayName(Meteor.user()),
+            text: content
+          });
+        }
+      }
+      return false;
+    }
+  }),
   Devices.allow({
-    insert: function(userId, doc){
-      return true;
-    },
     'update': function(userId, device, fields, modifier) {
       /* Update userId of a device */
       if (fields.length == 1 && fields[0] == "user") {

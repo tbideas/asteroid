@@ -1,4 +1,6 @@
 Meteor.startup(function () {
-  Accounts.emailTemplates.from = '"piJS.io" <pijs@tbideas.com>';
-  Accounts.emailTemplates.siteName = "piJS.io";
+  if (Meteor.settings.emails && Meteor.settings.emails.from)
+    Accounts.emailTemplates.from = Meteor.settings.emails.from;
+
+  Accounts.emailTemplates.siteName = "pijs.io";
 });

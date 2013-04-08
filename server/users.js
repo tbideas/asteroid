@@ -13,6 +13,24 @@ Accounts.onCreateUser(function(options, user){
   if ( !Meteor.users.find().count() )
     user.isAdmin = true;
 
+  var newUserEmail = Meteor.settings.emails && Meteor.settings.emails.newUser
+  if (newUserEmail) {
+    var emailText = 'Hi there!\n\n'
+     + 'A new user, going with the name ' + getUserDisplayName(user) + ' has joined pijs.io.\n'
+     + 'His complete profile is: \n'
+     + JSON.stringify(user)
+     + '\n\n'
+     + 'Cheers!\n'
+     + 'pijs.io';
+
+    Email.send({
+      from: Meteor.settings.emails.from,
+      to: newUserEmail,
+      subject: 'New user on pijs.io: ' + getUserDisplayName(user) + " (" + getSignupMethod(user) + ")",
+      text: emailText
+    });
+  }
+
   return user;
 });
 
