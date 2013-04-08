@@ -25,17 +25,17 @@ Template.userLoggedOut.events({
     return false;
   },
   "click button[name='login-twitter']": function(e) {
-    Meteor.loginWithTwitter(socialLoginCallback);
+    Meteor.loginWithTwitter({}, socialLoginCallback);
     analytics.event("Signup+Login", "Signin Twitter");
     return false;
   },
   "click button[name='login-facebook']": function(e) {
-    Meteor.loginWithFacebook(socialLoginCallback);
+    Meteor.loginWithFacebook({ requestPermissions: [ 'email' /*, 'publish_actions' */ ]}, socialLoginCallback);
     analytics.event("Signup+Login", "Signin Facebook");
     return false;
   },
   "click button[name='login-github']": function(e) {
-    Meteor.loginWithGithub(socialLoginCallback);
+    Meteor.loginWithGithub({ requestPermissions: [ 'user:email' /* , 'gist' */ ]}, socialLoginCallback);
     analytics.event("Signup+Login", "Signin Github");
     return false;
   },
