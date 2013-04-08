@@ -1,7 +1,6 @@
 Meteor.startup(function(){
   Devices.deny({
     'update': function(userId, device, fields, modifier) {
-      console.log('Devices.deny(%j %j %j %j)', userId, device, fields, modifier)
       if (_.contains(fields, 'user')) {
         var registerDevice = Meteor.settings.emails && Meteor.settings.emails.registerDevice;
 
