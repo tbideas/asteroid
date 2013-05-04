@@ -13,7 +13,7 @@ Accounts.onCreateUser(function(options, user){
   if ( !Meteor.users.find().count() )
     user.isAdmin = true;
 
-  var newUserEmail = Meteor.settings.emails && Meteor.settings.emails.newUser
+  var newUserEmail = Meteor.settings.emails && Meteor.settings.emails.newUserEmail
   if (newUserEmail) {
     var emailText = 'Hi there!\n\n'
      + 'A new user, going with the name ' + getUserDisplayName(user) + ' has joined pijs.io.\n'
