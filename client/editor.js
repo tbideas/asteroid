@@ -56,6 +56,7 @@ saveCode = function() {
       }
     }
     );
+  analytics.event("Editor", "Save Code");
 }
 
 var documentWatcherHandle;

@@ -39,8 +39,10 @@ analytics = {
       if(Meteor.user()){
         var currentUserEmail=getUserEmail(Meteor.user());
         mixpanel.identify(Meteor.user()._id);
+        mixpanel.name_tag(getUserDisplayName(Meteor.user()));
         mixpanel.people.set({
-            'username': getUserDisplayName(Meteor.user()),
+            '$first_name': getUserDisplayName(Meteor.user()),
+            '$username': getUserDisplayName(Meteor.user()),
             '$last_login': new Date(),
             '$created': moment(Meteor.user().createdAt)._d,
             '$email': currentUserEmail,
@@ -61,6 +63,12 @@ analytics = {
     'event': function(category, action) {
       analytics.mixpanel.setVars();
       mixpanel.track(action);
+    },
+    'alias': function(alias) {
+      mixpanel.alias(alias);
+    },
+    'set': function(vars) {
+      mixpanel.people.set(vars);
     }
   },
   /* Generic methods that will call specific implementations */
@@ -81,5 +89,13 @@ analytics = {
       analytics.ga.event(category, action);
     if (mixpanelId)
       analytics.mixpanel.event(category, action);
+  },
+  'alias': function(alias) {
+    if (mixpanelId)
+      analytics.mixpanel.alias(alias);
+  },
+  'set': function(vars) {
+    if (mixpanelId)
+      analytics.mixpanel.set(vars);
   }
 };

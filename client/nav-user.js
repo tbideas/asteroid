@@ -1,13 +1,19 @@
 Template.loginError.loginError = function() {
   return Session.get("loginError");
 }
-socialLoginCallback = function(error) {
+signupCallback = function(provider, error) {
   if (error) {
-    console.log("Social login error: " + error);
-    Session.set("loginError", error.toString());
+    console.log("Signup error: %j", error);
+    Session.set("loginError", error.reason);
   }
-  else
+  else {
+    // Alias the new userId to the already existing anonymous profile
+    // see: https://mixpanel.com/docs/integration-libraries/using-mixpanel-alias
+    analytics.alias(Meteor.user()._id);
+    analytics.event("Signup+Login", "NewUser-" + provider);
+
     router.gotoPage('dashboard');
+  }
 };
 Template.userLoggedOut.events({
   "click .dropdown-toggle": function(e) {
@@ -25,17 +31,17 @@ Template.userLoggedOut.events({
     return false;
   },
   "click button[name='login-twitter']": function(e) {
-    Meteor.loginWithTwitter({}, socialLoginCallback);
+    Meteor.loginWithTwitter({}, function(error) { signupCallback('twitter', error) } );
     analytics.event("Signup+Login", "Signin Twitter");
     return false;
   },
   "click button[name='login-facebook']": function(e) {
-    Meteor.loginWithFacebook({ requestPermissions: [ 'email' /*, 'publish_actions' */ ]}, socialLoginCallback);
+    Meteor.loginWithFacebook({ requestPermissions: [ 'email' /*, 'publish_actions' */ ]}, function(error) { signupCallback('facebook', error) });
     analytics.event("Signup+Login", "Signin Facebook");
     return false;
   },
   "click button[name='login-github']": function(e) {
-    Meteor.loginWithGithub({ requestPermissions: [ 'user:email' /* , 'gist' */ ]}, socialLoginCallback);
+    Meteor.loginWithGithub({ requestPermissions: [ 'user:email' /* , 'gist' */ ]}, function(error) { signupCallback('github', error) });
     analytics.event("Signup+Login", "Signin Github");
     return false;
   },
@@ -53,23 +59,22 @@ Template.userLoggedOut.events({
         else
           router.gotoPage('dashboard');
       });
-      analytics.event("Signup+Login", "Signin password");
+      analytics.event("Signup+Login", "Login password");
     }
 
     /* New user signing in with email and password */
     if (Session.get("userForm") == "signin") {
       var password = template.find("#password").value;
       Accounts.createUser({
-        'username': email,
-        'email': email,
-        'password': password
-      }, function(error) {
-        if
-          (error) Session.set("loginError", error.reason);
-        else
-          router.gotoPage('dashboard');
-      });
-      analytics.event("Signup+Login", "Signup with password");
+          'username': email,
+          'email': email,
+          'password': password
+        },
+        function(error) {
+          signupCallback('password', error)
+        }
+      );
+      analytics.event("Signup+Login", "Signing password");
     }
 
     /* User forgot his email */

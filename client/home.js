@@ -9,6 +9,7 @@ Template.home.events({
 
     Session.set("emailFormSubmitted", true);
     analytics.event("home", "Subscribe to newsletter");
+    analytics.set({ 'newsletter-subscribed': true});
 
     Meteor.call('subscribeEmail', email);
     return false;
