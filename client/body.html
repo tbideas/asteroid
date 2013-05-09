@@ -44,6 +44,7 @@
     {{/each }}
   </ul>
   <ul class="nav pull-right">
+    {{> userVoiceItem }}
     {{>navUser }}
   </ul>
 </template>
@@ -64,6 +65,11 @@
     <li class="{{navClass}}"><a href="#">{{ title }}</a></li>
   {{/if }}
 </template>
+
+<template name="userVoiceItem">
+  <li><a href="#">Support - Feedback!</a></li>
+</template>
+
 
 <template name="page">
   {{{ content }}}
