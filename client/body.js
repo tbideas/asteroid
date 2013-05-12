@@ -94,6 +94,6 @@ Template.userVoiceItem.events({
       default_mode: 'support',
       forum_id: 205991
     }]);
-
+    analytics.event('Uservoice', 'Support/Feedback');
   }
 });
