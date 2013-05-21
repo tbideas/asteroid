@@ -4,6 +4,7 @@
 </head>
 
 <body>
+  {{> analyticsInit }}
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
@@ -12,7 +13,7 @@
     </div>
   </div>
 
-  {{> page }}
+  {{ renderPage }}
 
   <div class="container">
     <hr>
@@ -37,41 +38,5 @@
   </div>
 </body>
 
-<template name="nav">
-  <a class="brand" href="#">piJS</a>
-  <ul class="nav">
-    {{#each navLinks }}
-      {{> navLink}}
-    {{/each }}
-  </ul>
-  <ul class="nav pull-right">
-    {{> userVoiceItem }}
-    {{>navUser }}
-  </ul>
-</template>
-
-<template name="navLink">
-  {{#if hasSubItems }}
-    <li class="dropdown {{navClass}}">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        {{ title }}<b class="caret"></b>
-      </a>
-      <ul class="dropdown-menu">
-        {{#each subitems }}
-          {{>navLink}}
-        {{/each}}
-      </ul>
-    </li>
-  {{ else }}
-    <li class="{{navClass}}"><a href="#">{{ title }}</a></li>
-  {{/if }}
-</template>
-
-<template name="userVoiceItem">
-  <li><a href="#">Support - Feedback!</a></li>
-</template>
-
-
-<template name="page">
-  {{{ content }}}
+<template name="analyticsInit">
 </template>

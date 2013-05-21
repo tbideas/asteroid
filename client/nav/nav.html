@@ -1,0 +1,29 @@
+<template name="nav">
+  <a class="brand" href="#">piJS</a>
+  <ul class="nav">
+    {{#each navLinks }}
+      {{> navLink}}
+    {{/each }}
+  </ul>
+  <ul class="nav pull-right">
+    {{> userVoiceItem }}
+    {{>navUser }}
+  </ul>
+</template>
+
+<template name="navLink">
+  {{#if hasSubItems }}
+    <li class="dropdown {{navClass}}">
+      <a href="{{ to }}" class="dropdown-toggle" data-toggle="dropdown">
+        {{ title }}<b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+        {{#each subitems }}
+          {{>navLink}}
+        {{/each}}
+      </ul>
+    </li>
+  {{ else }}
+    <li class="{{navClass}}"><a href="{{ to }}">{{ title }}</a></li>
+  {{/if }}
+</template>

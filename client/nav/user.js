@@ -3,8 +3,8 @@ Template.loginError.loginError = function() {
 }
 signupCallback = function(provider, error) {
   if (error) {
-    console.log("Signup error: %j", error);
-    Session.set("loginError", error.reason);
+    console.log("Signup error: %", error);
+    Session.set("loginError", error.message);
   }
   else {
     // Alias the new userId to the already existing anonymous profile
