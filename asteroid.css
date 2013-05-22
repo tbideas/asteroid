@@ -17,6 +17,11 @@ body {
   background-position: 1px;
 }
 
+.loader {
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+
 /* Forms in navbar user menu */
 .user-form {
   margin: 10px 10px 2px 10px;

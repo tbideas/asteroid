@@ -3,7 +3,7 @@ Template.loginError.loginError = function() {
 }
 signupCallback = function(provider, error) {
   if (error) {
-    console.log("Signup error: %", error);
+    console.log("Signup error: %s", error.message);
     Session.set("loginError", error.message);
   }
   else {
