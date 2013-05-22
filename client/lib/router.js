@@ -1,7 +1,13 @@
 Meteor.Router.add({
   '/': 'home',
   '/dashboard': 'dashboard',
-  '/editor': 'editor',
+  '/editor/:_id': { 
+    as: 'editor', 
+    to: function(_id) {
+      Session.set('editedDoc', _id);
+      return 'editor';
+    }
+  },
   '/gettingstarted': { as: 'gettingStarted', to: 'doc'},
   '/examples': 'examples',
   '/faq': 'faq'

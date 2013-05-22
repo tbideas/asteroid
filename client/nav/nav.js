@@ -1,6 +1,5 @@
 var navLinks = [
   { title: 'Dashboard', to: Meteor.Router.dashboardPath(), logged: true },
-  { title: 'Editor', to: Meteor.Router.editorPath(), logged:true },
   { title: 'Documentation', 
     subitems: [
       { title: 'Getting Started', to: Meteor.Router.gettingStartedPath() },

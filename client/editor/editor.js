@@ -122,11 +122,6 @@ Template.editor.destroyed = function(template) {
 Template.editor.enabled = function(template) {
   return Session.get("editorDisabled") != true;
 }
-Template.editor.events({
-  "click a[name='gettingstarted']": function() {
-    router.gotoPage("doc");
-  }
-});
 Template.codeToolbar.deviceName = function() {
   var d = Devices.findOne({_id: Session.get("editedDoc")});
   if (d)

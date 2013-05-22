@@ -39,7 +39,7 @@
   {{/if}}
   <p><span class="btn addDevice">Add new device</span></p>
   {{#unless hasDevices}}
-    <p><em>You need to download the piJS client on your Raspberry Pi before you can program it through pijs.io. Please <a href="#" name="gettingstarted">follow our getting started guide</a>.</em></p>
+    <p><em>You need to download the piJS client on your Raspberry Pi before you can program it through pijs.io. Please <a href="{{ gettingStartedPath }}">follow our getting started guide</a>.</em></p>
   {{/unless}}
 </template>
 
@@ -58,7 +58,7 @@
     <td><pre>{{ software }} - {{ version }}</pre></td>
     <td>{{ lastSeen }}</td>
     <td>
-      <button class="btn editCode">Edit Code</button>
+      <a class="btn" href="{{ editorPath _id }}">Edit Code</a>
       <button class="btn viewLogs"><i class="icon-list-alt"></i></button>
       <button class="btn deleteLogs"><i class="icon-remove"></i></button>
     </td>

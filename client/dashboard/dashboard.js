@@ -11,9 +11,6 @@ Template.deviceList.events({
     Meteor.subscribe("new-devices", myip);
     $('#addDeviceModal').modal();
     analytics.event("Dashboard", "New device wizard");
-  },
-  "click a[name='gettingstarted']": function (event, template) {
-    router.gotoPage('doc');
   }
 });
 Template.device.rowClass = function(status) {
@@ -50,10 +47,6 @@ Template.device.events({
       Session.set("edit-" + this._id, false);
       event.stopImmediatePropagation();
     }
-  },
-  'click button.editCode': function(event, template) {
-    Session.set("editedDoc", template.data._id);
-    router.gotoPage('editor');
   },
   'click button.viewLogs': function(event, template) {
     Session.set("logModalDevice", template.data);
