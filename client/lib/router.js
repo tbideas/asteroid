@@ -8,7 +8,7 @@ Meteor.Router.add({
       return 'editor';
     }
   },
-  '/gettingstarted': { as: 'gettingStarted', to: 'doc'},
+  '/gettingstarted': { as: 'gettingStarted', to: 'gettingStarted'},
   '/examples': 'examples',
   '/faq': 'faq'
 });

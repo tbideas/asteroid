@@ -1,0 +1,136 @@
+<template name="examples">
+  <div class="container">
+    <div class="row">
+      <div class="span8 offset1">
+        <h2>Examples</h2>
+
+        <h3>Hello World</h3>
+<pre>
+console.log("Hello, World!");
+</pre>
+<hr/>
+        <h3>Control the color of an RGB led to warn you of the minutes passing by</h3>
+        <p>This project uses <a href="https://github.com/sarfata/pi-blaster">pi-blaster</a> and a RGB led. For more information, read <a href="http://www.tbideas.com/blog/2013/02/controling-a-high-power-rgb-led-with-a-raspberry-pi">this blog article</a>.
+        </p>
+        <pre>
+/*
+ * Sample code: Changes the color of an RGB led depending on the
+ * current time.
+ */
+
+function setColor(red, green, blue) {
+  console.log(util.format("setColor: %d %d %d", red, green, blue));
+  piblaster.setPwm(1, red);
+  piblaster.setPwm(2, green);
+  piblaster.setPwm(4, blue);
+
+
+  // Enable the led if we have a value > 0
+  if (red &gt; 0 || green &gt; 0 || blue &gt; 0) {
+    piblaster.setPwm(0, 1);
+  }
+  // Otherwise disable it
+  else {
+    piblaster.setPwm(0, 0);
+  }
+}
+
+var SEC_PER_MIN = 10;
+setInterval(function() {
+  var d = new Date();
+  var intensity = 0;
+
+  if (d.getSeconds() &gt; 60 - SEC_PER_MIN) {
+    intensity = 1 - (60 - d.getSeconds()) / SEC_PER_MIN;
+  }
+  switch (d.getMinutes() % 3) {
+    case 0:
+      setColor(intensity, 0, 0);
+      break;
+    case 1:
+      setColor(0, intensity, 0);
+      break;
+    case 2:
+      setColor(0, 0, intensity);
+      break;
+  }
+}, 500);
+</pre>
+
+        <h3>Read data from a weather station connected through a serial port and push to Cosm</h3>
+        <p>For more information about this project, check out the <a href="http://www.tbideas.com/blog/2013/01/connect-your-weather-station-to-Internet/">blog article</a> that describes the weather station (note that I am using the Raspberry Pi in place of the Wifi module now).</p>
+        <p>
+          <img src="https://api.cosm.com/v2/feeds/119921/datastreams/temp.png?width=730&height=250&colour=%2369C1E7&duration=1day&title=Temperature&show_axis_labels=true&detailed_grid=true&scale=auto&timezone=UTC">
+          Result is also visible <a href='https://cosm.com/feeds/119921' target='_blank'>live on Cosm</a>.
+        </p>
+<pre>
+var serialport = require('serialport');
+var http = require('http');
+
+var serial = new serialport.SerialPort("/dev/ttyUSB0", { baudrate: 9600 } );
+
+var rxdata = '';
+var regexp = new RegExp('temp=([0-9]+)&humidity=([0-9]+)&pressure=([0-9]{5})', '');
+
+serial.on('data', function (data) {
+  //console.log("Received data: '%s'", data);
+  rxdata += data;
+
+  var fields = regexp.exec(rxdata);
+  if (fields) {
+    console.log("Parsed %s and found %s/%s/%s", rxdata, fields[1], fields[2], fields[3]);
+    rxdata = '';
+
+    cosm_push('HERE_COSM_API_KEY', 'COSM_FEED_ID', fields[1]/10, fields[2], fields[3]/10);
+  }
+  //else
+  //  console.log('no match for now (%s)', rxdata);
+});
+
+serial.on('error', function (e) {
+  console.error("Error: %s", e);
+});
+
+console.log("Ok - Listening now");
+
+
+
+function cosm_push(apikey, feedid, temp, humidity, pressure)
+{
+  var data = JSON.stringify({
+    version: "1.0.0",
+    datastreams: [
+      {"id":"humidity", "current_value":humidity},
+      {"id":"pressure", "current_value":pressure},
+      {"id":"temp", "current_value":temp}
+    ]
+  });
+
+  var options = {
+    hostname: 'api.cosm.com',
+    method: 'PUT',
+    port: 80,
+    headers: {
+      'X-ApiKey': apikey,
+      'Content-Length': data.length
+    },
+    path: '/v2/feeds/' + feedid
+  };
+
+  var req = http.request(options, function(res) {
+    console.log("COSM: Got response: " + res.statusCode);
+  });
+  req.on('error', function(e) {
+    console.warn("COSM: Got error %s", e);
+  });
+
+  req.write(data);
+  req.end();
+}
+</pre>
+<hr/>
+
+      </div>
+    </div>
+  </div>
+</template>
