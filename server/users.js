@@ -5,6 +5,26 @@ Accounts.onCreateUser(function(options, user){
   if (email) {
     email = email.trim().toLowerCase();
     user.email_hash =  CryptoJS.MD5(email).toString();
+
+    // Automatically subscribe user to our low-volume mailing list
+    Mailchimp.subscribeMailchimp(email, false, function(error, result) {
+      if (!error) {
+        if (result.content == 'true') {
+          user.profile.mailchimp = "auto";
+        }
+        else if (result.content.indexOf("is already subscribed") != -1) {
+          // User had already enrolled in our mailing list - cool!
+          user.profile.mailchimp = "user";
+        }
+        else {
+          user.profile.mailchimpError = result.content;
+        }
+      }
+      else {
+        user.profile.mailchimpError = error;
+      }
+    });
+    
   }
 
   if (!user.profile.name)
