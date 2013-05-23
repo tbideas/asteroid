@@ -73,16 +73,21 @@ Meteor.publish("device-code", function(token) {
 Meteor.methods({
   /* Each device is supposed to have a unique token and use it when connecting. */
   // TODO: add some security here ;) It is a little too easy to be someone's else device
-  'register': function(token, software, version) {
-    if (token === undefined)
+  'register': function(token, software, version, infos) {
+    if (token === undefined) {
       return false;
+    }
+    if (! 'ip' in infos) {
+      infos.ip = undefined;
+    }
+    
     var d = Devices.find({'token': token});
     if (d.count() == 0) {
       var device = {
         'token': token,
         'software': software,
         'version': version,
-        'ip': 'n/a',
+        'ip': infos.ip,
         'lastSeen': new Date()
       };
       console.log("register(): new device - %j", device);
@@ -91,7 +96,13 @@ Meteor.methods({
     }
     else {
       var device = d.fetch()[0];
-      Devices.update({_id: device._id}, { $set: { 'lastSeen': new Date() }});
+      Devices.update({_id: device._id}, { $set: {
+          'lastSeen': new Date(),
+          'ip': infos.ip,
+          'software': software,
+          'version': version
+        }
+      });
       console.log("register() from known device - %j", device);
     }
     return true;
