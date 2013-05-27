@@ -77,6 +77,9 @@ Meteor.methods({
     if (token === undefined) {
       return false;
     }
+    if (! infos) {
+      infos = {};
+    }
     if (! 'ip' in infos) {
       infos.ip = undefined;
     }
@@ -88,6 +91,7 @@ Meteor.methods({
         'software': software,
         'version': version,
         'ip': infos.ip,
+        'infos': infos,
         'lastSeen': new Date()
       };
       console.log("register(): new device - %j", device);
@@ -100,11 +104,21 @@ Meteor.methods({
           'lastSeen': new Date(),
           'ip': infos.ip,
           'software': software,
-          'version': version
+          'version': version,
+          'infos': infos
         }
       });
       console.log("register() from known device - %j", device);
     }
     return true;
+  },
+  'keepAlive': function(token, infos) {
+    var d = Devices.findOne({'token': token});
+    if (d) {
+      Devices.update({_id: d._id}, { $set: {
+        'lastSeen': new Date(),
+        'infos': infos
+      }});
+    }
   }
 });
