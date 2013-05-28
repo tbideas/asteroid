@@ -1,3 +1,9 @@
+Template.home.rendered = function() {
+  setTimeout(function() { 
+    twttr.widgets.load(this.firstNode);;
+  }, 0);
+}
+
 
 Template.emailForm.showEmailForm = function() {
   return Session.get("emailFormSubmitted") != true;
