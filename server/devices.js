@@ -53,8 +53,9 @@ Meteor.startup(function(){
   });
 });
 
-Meteor.publish("new-devices", function() {
-  return Devices.findNewDevices();
+Meteor.publish("new-devices", function(ip) {
+  console.log("Subscribing to new-devices with ip: %s", ip);
+  return Devices.findNewDevices(ip);
 });
 
 Meteor.publish("user-devices", function() {
