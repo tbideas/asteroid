@@ -22,9 +22,14 @@ Meteor.Router.filters({
     } else {
       return 'home';
     }
+  },
+  'stats': function(page) {
+    analytics.page(Meteor.Router.namedRoutes[page].path);
+    return page;
   }
 });
 
 Meteor.Router.filter('checkLoggedIn', {
   except: [ 'home', 'gettingStarted', 'examples', 'faq' ]
 });
+Meteor.Router.filter('stats', {});

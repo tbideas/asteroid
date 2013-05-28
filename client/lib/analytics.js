@@ -4,7 +4,10 @@ var mixpanelId = (Meteor.settings && Meteor.settings.public
 var gaAccount = (Meteor.settings && Meteor.settings.public
     && Meteor.settings.public.analytics) ?
   Meteor.settings.public.analytics.ga : undefined;
-
+var analyticsDebug = (Meteor.settings && Meteor.settings.public 
+  && Meteor.settings.public.analytics.debug) ?
+   Meteor.settings.public.analytics.debug : false;
+  
 analytics = {
   ga: {
     'init': function() {
@@ -77,18 +80,24 @@ analytics = {
       analytics.ga.init();
     if (mixpanelId)
       analytics.mixpanel.init();
+    if (analyticsDebug) 
+      console.log("ANALYTICS: init()");
   },
   'page': function(page) {
     if (gaAccount)
       analytics.ga.page(page);
     if (mixpanelId)
       analytics.mixpanel.page(page);
+    if (analyticsDebug) 
+      console.log("ANALYTICS: page(%s)", page);
   },
   'event': function(category, action) {
     if (gaAccount)
       analytics.ga.event(category, action);
     if (mixpanelId)
       analytics.mixpanel.event(category, action);
+    if (analyticsDebug) 
+      console.log("ANALYTICS: event(%s, %s)",category, action);
   },
   'alias': function(alias) {
     if (mixpanelId)
@@ -99,3 +108,8 @@ analytics = {
       analytics.mixpanel.set(vars);
   }
 };
+
+if (typeof analyticsInitialized === "undefined") {
+  analytics.init();
+  analyticsInitialized = true;
+}
