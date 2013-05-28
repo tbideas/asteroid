@@ -39,7 +39,7 @@
   {{/if}}
   <p><span class="btn addDevice">Add new device</span></p>
   {{#unless hasDevices}}
-    <p><em>You need to download the piJS client on your Raspberry Pi before you can program it through pijs.io. Please <a href="{{ gettingStartedPath }}">follow our getting started guide</a>.</em></p>
+    <p><em>Please <a href="{{ gettingStartedPath }}">follow our getting started guide</a> to install pijs.io on your Raspberry Pi.</em></p>
   {{/unless}}
 </template>
 
@@ -114,7 +114,7 @@
 
   {{#unless hasDevices}}
     <p>
-      You can now turn on your Raspberry Pi with piJS client installed.<br>
+      You can now turn on your Raspberry Pi with pijs.io client installed.<br>
       When your device connects, it will appear here.
     </p>
   {{/unless}}
@@ -161,7 +161,7 @@
     {{#if hasDevices }}
       <h3>Running code on your Pi</h3>
       <p>Now that you have added a device, just click on <button class="btn">Edit code</button> next to it and start writing JavaScript.</p>
-      <p>In piJS, each device is associated to its code and it will automatically run it every time it connects to the server - or every time you change the code: no need to save, just stop typing and your code is pushed to the device.</p>
+      <p>In pijs.io, each device is associated to its code and it will automatically run it every time it connects to the server - or every time you change the code: no need to save, just stop typing and your code is pushed to the device.</p>
       <h4>Want to run some code at regular intervals?</h4>
       <p>It is very easy with <code>setInterval(function() { }, time)</code>: your code will run every <code>time</code> milliseconds.</p>
       <h4>How about logs?</h4>
