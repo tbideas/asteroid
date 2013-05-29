@@ -8,9 +8,12 @@ Template.sidebar.hasDevices = Template.deviceList.hasDevices;
 
 Template.deviceList.events({
   'click .addDevice': function(event, template) {
-    Meteor.subscribe("new-devices", myip);
     $('#addDeviceModal').modal();
     analytics.event("Dashboard", "New device wizard");
+    
+    WhatsMyIp.getIP(function(myip) {
+      Meteor.subscribe("new-devices", myip);
+    });    
   }
 });
 Template.device.rowClass = function(status) {
