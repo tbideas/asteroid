@@ -24,7 +24,9 @@ Meteor.Router.filters({
     }
   },
   'stats': function(page) {
-    analytics.page(Meteor.Router.namedRoutes[page].path);
+    if (page in Meteor.Router.namedRoutes) {
+      analytics.page(Meteor.Router.namedRoutes[page].path);
+    }
     return page;
   }
 });
