@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=0.0.2
+VERSION=0.1.0
 PRECOMPILED=http://pijs.s3.amazonaws.com/pijs-precompiled-$VERSION.tar.gz
 
 PING_INSTALL_1='http://io.tbideas.com/pijs/installing?precompiled=true'
@@ -18,10 +18,10 @@ echo "## Installing nodejs and dependencies"
 cd / && sudo tar zxvf /tmp/pijs-precompiled.tar.gz
 
 echo "Configuring auto-start"
-sudo cp /usr/local/lib/node_modules/pi-steroid/pi-steroid-boot.sh /etc/init.d/pi-steroid
-sudo chmod +x /etc/init.d/pi-steroid
-sudo update-rc.d pi-steroid defaults
-sudo /etc/init.d/pi-steroid start
+sudo cp /usr/local/lib/node_modules/pi-steroid/pijs-boot.sh /etc/init.d/pijs
+sudo chmod +x /etc/init.d/pijs
+sudo update-rc.d pijs defaults
+sudo /etc/init.d/pijs start
 
 echo "# Installation finished! Pinging stat server"
 curl $PING_INSTALL_2

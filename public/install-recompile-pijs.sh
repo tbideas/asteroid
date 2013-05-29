@@ -23,10 +23,10 @@ echo "## Installing dependencies"
 sudo /usr/local/bin/npm -g install forever pi-steroid
 
 echo "Configuring auto-start"
-sudo cp /usr/local/lib/node_modules/pi-steroid/pi-steroid-boot.sh /etc/init.d/pi-steroid
-sudo chmod +x /etc/init.d/pi-steroid
-sudo update-rc.d pi-steroid defaults
-sudo /etc/init.d/pi-steroid start
+sudo cp /usr/local/lib/node_modules/pi-steroid/pijs-boot.sh /etc/init.d/pijs
+sudo chmod +x /etc/init.d/pijs
+sudo update-rc.d pijs defaults
+sudo /etc/init.d/pijs start
 
 echo "# Installation finished! Pinging stat server"
 curl $PING_INSTALL_2
