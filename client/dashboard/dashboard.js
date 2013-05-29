@@ -69,10 +69,10 @@ Template.addDeviceModal.events({
 });
 
 Template.addDeviceModalBody.devices = function() {
-  return Devices.findNewDevices(myip);
+  return Devices.findNewDevices();
 };
 Template.addDeviceModalBody.hasDevices = function() {
-  return Devices.findNewDevices(myip).count() > 0;
+  return Devices.findNewDevices().count() > 0;
 };
 
 Template.newDevice.events({
