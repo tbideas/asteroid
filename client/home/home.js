@@ -1,6 +1,9 @@
 Template.home.rendered = function() {
-  setTimeout(function() { 
-    twttr.widgets.load(this.firstNode);;
+  // Manually call the twitter renderer
+  setTimeout(function() {
+    if (typeof twttr !== 'undefined') {
+      twttr.widgets.load(this.firstNode);;
+    }
   }, 0);
 }
 
