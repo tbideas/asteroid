@@ -23,8 +23,12 @@ Template.navLink.hasSubItems = function() {
 
 Template.navLink.navClass = function() {
   var currentPage = Meteor.Router.page();
-
-  if (this.to === currentPage)
+  var currentPath;
+  if (currentPage && currentPage in Meteor.Router.namedRoutes) {
+    currentPath = Meteor.Router.namedRoutes[currentPage].path;
+  }
+  
+  if (this.to === currentPath)
     return "active";
 
   if (this.subitems)
