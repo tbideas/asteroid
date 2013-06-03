@@ -62,18 +62,7 @@ Template.device.events({
   }
 });
 
-Template.addDeviceModal.events({
-  'click .btn': function(event, template) {
-    $('#addDeviceModal').modal("hide");
-  }
-});
 
-Template.addDeviceModalBody.devices = function() {
-  return Devices.findNewDevices();
-};
-Template.addDeviceModalBody.hasDevices = function() {
-  return Devices.findNewDevices().count() > 0;
-};
 
 Template.newDevice.events({
   'click .btn': function() {
@@ -87,21 +76,3 @@ Template.newDevice.events({
   }
 });
 
-Template.logModalTitle.deviceName = function() {
-  var logModalDevice = Session.get("logModalDevice");
-  if (logModalDevice)
-    return logModalDevice.name;
-  else
-    return "";
-}
-Template.logModalContent.logs = function() {
-  var logModalDevice = Session.get("logModalDevice");
-
-  if (logModalDevice)
-    return DeviceLogs.find({deviceId: logModalDevice._id});
-  else
-    return [];
-}
-Template.logLine.ts = function() {
-  return moment(this.ts).format();
-}

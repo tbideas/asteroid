@@ -1,0 +1,27 @@
+<template name="logModal">
+  <div id="logModal" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      {{> logModalTitle}}
+    </div>
+    <div class="modal-body">
+      {{> logModalContent}}
+    </div>
+  </div>
+</template>
+
+<template name="logModalTitle">
+  <h3>Logs for {{ deviceName }}</h3>
+</template>
+
+<template name="logModalContent">
+  <pre class="log">
+    {{#each logs}}
+  {{>logLine}}
+    {{/each}}
+  </pre>
+</template>
+
+<template name="logLine">
+{{ ts }} [{{ level }}] {{ message }}
+</template>
