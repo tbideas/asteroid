@@ -5,11 +5,19 @@ Meteor.publish('posts', function() {
 Meteor.startup(function(){
   Posts.allow({
     'insert': function(userId, doc) {
-      console.log("HEY FIXME!");
-      return true;
+      if (Meteor.user().isAdmin === true) {
+        return true;
+      }
     },
     'update': function(userId, device, fields, modifier) {
-      return true;
+      if (Meteor.user().isAdmin === true) {
+        return true;
+      }
+    },
+    'remove': function(userId, doc) {
+      if (Meteor.user().isAdmin === true) {
+        return true;
+      }
     }
   });
 });

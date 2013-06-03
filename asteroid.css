@@ -90,6 +90,29 @@ pre.log {
   margin-bottom: 20px;
 }
 
+/* Learn list */
+.learn-thumbnail div.img-container {
+  min-height: 180px;
+}
+.learn-thumbnail h1 {
+  font-size: 18px;
+  line-height: 24px;
+  color: #333333;
+  text-decoration: none;
+}
+.learn-thumbnail a:link {
+  text-decoration: none;
+}
+.learn-thumbnail a:visited {
+  text-decoration: none;
+}
+.learn-thumbnail a:active {
+  text-decoration: none;
+}
+.learn-thumbnail a:hover {
+  text-decoration: none;
+}
+
 /* Learn page */
 .learn-content h1 {
   font-size: 24px;
@@ -116,11 +139,52 @@ pre.log {
   margin-left: 10px;
   width: 64px;
 }
+
+
 /* Learn page editor */
+.learn-editor .nav-tabs {
+  margin-top: 50px;
+}
 .learn-editor input {
   width: 100%;
 }
 .learn-editor textarea {
   width: 100%;
+}
+.learn-editor textarea[name='content'] {
   height: 320px;
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-size: 12px;
+  line-height: 20px;
+}
+.help-fancyLink {
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+}
+button[name='addPrereq'] {
+  margin: 80px 0px 80px 0px;
+}
+.edit-prereq fieldset {
+  margin-bottom: 50px;
+  width: 80%;
+}
+.edit-prereq .control-label {
+  width: 90px;
+}
+.edit-prereq .controls {
+  margin-left: 100px;
+}
+
+
+/* Error page */
+.error-row {
+  margin: 100px 0px 100px 0px;
+}
+.error-code {
+  line-height: 200px;
+  font-size: 120px;
+  font-weight: bold;
+}
+.error-reason {
+  font-size: 20px;
+  font-weight: bold;
 }

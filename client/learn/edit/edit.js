@@ -1,13 +1,39 @@
-Template.learnEditor.title = function() {
+Template.editTab.title = function() {
   return Session.get("currentPost").title;
 }
 
-Template.learnEditor.content = function() {
+Template.editTab.summary = function() {
+  return Session.get("currentPost").summary;
+}
+
+Template.editTab.image = function() {
+  return Session.get("currentPost").image;
+}
+
+Template.editTab.fancyLink = function() {
+  var post = Session.get("currentPost");
+  var dbPost = Posts.findOne(post._id);
+  
+  // If the user has not saved yet, we want the fancy link to change when the title does.
+  if (!dbPost.fancyLink || dbPost.fancyLink === "")
+  {
+    console.log("dbPost: %j", dbPost);
+    var fancyLink = post.title.toLowerCase();
+    fancyLink = fancyLink.replace(/\s+/gi, '-');
+    fancyLink = fancyLink.replace(/[^\w_-]/gi, '');
+    return fancyLink;
+  }
+  else {
+    return post.fancyLink;
+  }
+}
+
+Template.editTab.content = function() {
   var converter = new Showdown.converter();
   return Session.get("currentPost").content;
 }
 
-Template.learnEditor.prerequisites = function() {
+Template.prerequisitesTab.prerequisites = function() {
   var array = Session.get("currentPost").prerequisites;
 
   if (typeof array === "object") {
@@ -18,15 +44,18 @@ Template.learnEditor.prerequisites = function() {
   return array;
 }
 
-Template.learnEditor.events({
+Template.editTab.events({
   'click .btn#post-save': function(event, template) {
     var button = template.find('button#post-save');
+    console.log("saving - button.enabled=%s", (button.enabled !== false ? "true" : "false"));
     if (button.enabled !== false) {
       var initialText = button.innerHTML;
-      button.enabled = false;    
       button.innerHTML = "Saved!";
+      button.enabled = false;    
     
-      Posts.update(Session.get("currentPost")._id, {$set: _.pick(Session.get("currentPost"), 'title', 'content', 'prerequisites') }, function(error) {
+      console.log("calling update...");
+      Posts.update(Session.get("currentPost")._id, {$set: _.pick(Session.get("currentPost"), 'title', 'summary', 'image', 'fancyLink', 'content', 'prerequisites') }, function(error) {
+        console.log("back from update %j", error);
         if (error) {
           console.log("Error saving currentPost: %j", error);
           button.innerHTML = "Unable to save!";
@@ -47,14 +76,19 @@ Template.learnEditor.events({
     }
   },
   'keyup input, keyup textarea': function(event, template) {
-    console.log("text area changed");
     var post = Session.get("currentPost");
-    post.title = template.find("input").value;
-    post.content = template.find("textarea").value;
+    post.title = template.find("input[name='title']").value;
+    post.summary = template.find("textarea[name='summary']").value;
+    post.image = template.find("input[name='image']").value;
+    post.fancyLink = template.find("input[name='fancyLink']").value;
+    post.content = template.find("textarea[name='content']").value;
     Session.set("currentPost", post);
-  },
-  'click #addPrereq': function(event, template) {
-    console.log("add Prereq");
+  }
+});
+
+Template.prerequisitesTab.events({
+  'click button[name="addPrereq"]': function(event, template) {
+    event.preventDefault();
     var post = Session.get("currentPost");
     if (typeof post.prerequisites !== "object") {
       post.prerequisites = [];
@@ -81,6 +115,14 @@ Template.editPrereq.events({
     prereq.img = template.find("input[name='img']").value;
     prereq.link = template.find("input[name='link']").value;
     post.prerequisites[idx] = prereq;
+    Session.set("currentPost", post);
+  },
+  'click button': function(event, template) {
+    event.preventDefault();
+    var idx = template.data.__index;
+    
+    var post = Session.get("currentPost");
+    post.prerequisites.splice(idx, 1);
     Session.set("currentPost", post);
   }
 })

@@ -1,0 +1,37 @@
+<template name="adminDashboard">
+  <div class="container dashboard">
+    <div class="page-header">
+      <h1>Admin</h1>
+    </div>
+
+    <div class="row">
+      <div class="span9">
+        <h2>Tutorials management</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Title</th><th>Author</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each posts}}
+              {{> adminPost}}
+            {{/each}}
+          </tbody>
+        </table>
+        <button class="btn" name="buttonNewPost">New post</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="adminPost">
+  <tr>
+    <td>{{ title }}</td>
+    <td>{{ author }}</td>
+    <td>
+      <button class="btn" name="edit"><i class="icon-edit"></i></button>
+      <button class="btn btn-danger" name="delete"><i class="icon-trash icon-white"></i></button>
+    </td>
+  </tr>
+</template>

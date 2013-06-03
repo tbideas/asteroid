@@ -1,5 +1,6 @@
 var navLinks = [
   { title: 'Dashboard', to: Meteor.Router.dashboardPath(), logged: true },
+  { title: 'Admin', to: Meteor.Router.adminDashboardPath(), logged:true, admin:true},
   { title: 'Documentation', 
     subitems: [
       { title: 'Getting Started', to: Meteor.Router.gettingStartedPath() },
@@ -7,12 +8,19 @@ var navLinks = [
       { title: 'FAQ', to: Meteor.Router.faqPath() }
     ]
   },
-  { title: 'Learn', to: Meteor.Router.learnPath(1) }
+  { title: 'Learn', to: Meteor.Router.learnListPath() }
 ];
 
 Template.nav.navLinks = function() {
-  if (Meteor.user())
-    return navLinks
+  if (Meteor.user()) {
+    if (Meteor.user().isAdmin === true) {
+      return navLinks      
+    }
+    else {
+      return _.reject(navLinks, function(e) { return "admin" in e && e['admin'] } );
+    }
+  }
+    
   else
     return _.reject(navLinks, function(e) { return "logged" in e && e['logged'] } );
 }

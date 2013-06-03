@@ -11,13 +11,13 @@ Meteor.Router.add({
   '/gettingstarted': { as: 'gettingStarted', to: 'gettingStarted'},
   '/examples': 'examples',
   '/faq': 'faq',
+  '/learn/': 'learnList',
   '/learn/:_id': {
     as: 'learn',
     to: function(_id) {
-      var post = Posts.findOne(_id);
-      console.log("Setting post: %j", post);
+      var post = Posts.findOne({ $or: [ { '_id': _id }, { 'fancyLink': _id } ] });
+      
       if (post) {
-        Session.set('currentPost', post);
         return 'learn';
       }
       else {
@@ -29,7 +29,6 @@ Meteor.Router.add({
     as: 'learnEditor',
     to: function(_id) {
       var post = Posts.findOne(_id);
-      console.log("Setting post: %j", post);
       if (post) {
         Session.set('currentPost', post);
         return 'learnEditor';
@@ -38,7 +37,9 @@ Meteor.Router.add({
         return '404';
       }
     }
-  }
+  },
+  '/admin/': 'adminDashboard',
+  '*': '404'
 });
 
 Meteor.Router.filters({
@@ -56,10 +57,21 @@ Meteor.Router.filters({
       analytics.page(Meteor.Router.namedRoutes[page].path);
     }
     return page;
+  },
+  'adminOnly': function(page) {
+    if (Meteor.user().isAdmin === true) {
+      return page;
+    }
+    else {
+      return 'home';
+    }
   }
 });
 
 Meteor.Router.filter('checkLoggedIn', {
-  except: [ 'home', 'gettingStarted', 'examples', 'faq', 'learn' ]
+  except: [ 'home', 'gettingStarted', 'examples', 'faq', 'learnList', 'learn', '404']
+});
+Meteor.Router.filter('adminOnly', {
+  only: [ 'admin' ]
 });
 Meteor.Router.filter('stats', {});
