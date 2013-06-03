@@ -1,0 +1,40 @@
+<template name="learn">
+  <div class="container">
+
+    <div class="row">
+      <div class="span9">
+        <p>
+          <h3 style="margin-bottom:0px;">{{ title }}</h3>
+          <small>by <a href="#">thomas</a> (42) - on dec 2013</small>
+        </p>
+      </div>
+      <div class="span3">
+        <button class="btn btn-primary btn-deploy"><i class="icon-download icon-white"></i> Deploy</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span9 learn-content">
+        <p>{{{ content }}}</p>
+      </div>
+      <div class="span3">
+        {{#each prerequisites }}
+          {{> prerequisite}}
+        {{/each}}          
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<template name="prerequisite">
+  <div class="media prerequisite">
+    <a class="pull-left" href="#">
+      <img class="media-object" src="{{ img }}">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">{{ title }}</h4>
+      <p>{{ description }}</p>
+    </div>
+  </div>
+</template>

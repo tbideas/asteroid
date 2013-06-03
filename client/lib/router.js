@@ -10,7 +10,35 @@ Meteor.Router.add({
   },
   '/gettingstarted': { as: 'gettingStarted', to: 'gettingStarted'},
   '/examples': 'examples',
-  '/faq': 'faq'
+  '/faq': 'faq',
+  '/learn/:_id': {
+    as: 'learn',
+    to: function(_id) {
+      var post = Posts.findOne(_id);
+      console.log("Setting post: %j", post);
+      if (post) {
+        Session.set('currentPost', post);
+        return 'learn';
+      }
+      else {
+        return '404';
+      }
+    }
+  },
+  '/learn/:_id/edit': {
+    as: 'learnEditor',
+    to: function(_id) {
+      var post = Posts.findOne(_id);
+      console.log("Setting post: %j", post);
+      if (post) {
+        Session.set('currentPost', post);
+        return 'learnEditor';
+      }
+      else {
+        return '404';
+      }
+    }
+  }
 });
 
 Meteor.Router.filters({
@@ -32,6 +60,6 @@ Meteor.Router.filters({
 });
 
 Meteor.Router.filter('checkLoggedIn', {
-  except: [ 'home', 'gettingStarted', 'examples', 'faq' ]
+  except: [ 'home', 'gettingStarted', 'examples', 'faq', 'learn' ]
 });
 Meteor.Router.filter('stats', {});

@@ -89,3 +89,38 @@ pre.log {
   min-height: 100px;
   margin-bottom: 20px;
 }
+
+/* Learn page */
+.learn-content h1 {
+  font-size: 24px;
+}
+.learn-content h2 {
+  font-size: 18px;
+}
+.learn-content h3 {
+  font-size: 16px;
+}
+.learn-content h4 {
+  font-size: 15px;
+}
+.learn-content h5 {
+  font-size: 14px;
+}
+.learn-content h6 {
+  font-size: 14px;
+}
+.btn-deploy {
+  margin-top: 20px;
+}
+.prerequisite img {
+  margin-left: 10px;
+  width: 64px;
+}
+/* Learn page editor */
+.learn-editor input {
+  width: 100%;
+}
+.learn-editor textarea {
+  width: 100%;
+  height: 320px;
+}

@@ -6,7 +6,8 @@ var navLinks = [
       { title: 'Examples', to: Meteor.Router.examplesPath() },
       { title: 'FAQ', to: Meteor.Router.faqPath() }
     ]
-  }
+  },
+  { title: 'Learn', to: Meteor.Router.learnPath(1) }
 ];
 
 Template.nav.navLinks = function() {

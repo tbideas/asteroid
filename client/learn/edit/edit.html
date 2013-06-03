@@ -1,0 +1,65 @@
+<template name="learnEditor">
+  <div class="container learn-editor">
+
+    <div class="row">
+      <div class="span9">
+        <p>
+          <h3 style="margin-bottom:0px;"><input id="post-title" type="text" value="{{ title }}"></h3>
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="span9 learn-content">
+        <textarea id="post-content">{{{ content }}}</textarea>
+      </div>
+      <div class="span3">
+        <button id="post-save" class="btn btn-primary pull-right">Save changes</button>
+      </div>
+    </div>
+    {{#each prerequisites}}
+      {{> editPrereq}}
+    {{/each}}
+    <div class="row">
+      <div class="offset8 span1">
+        <button class="btn pull-right" id="addPrereq"><i class="icon-plus"></i></button>
+      </div>
+    </div>
+    <div class="page-header"><h1>Preview</h1></div>
+  </div>
+  
+  {{> learn }}
+</template>
+
+<template name="editPrereq">
+  <form class="row" id="editPrereq-{{ __index }}">
+    <div class="span4 offset1">
+      <div class="control-group">
+        <label class="control-label" for="title">Title:</label>
+        <div class="controls">
+          <input type="text" name="title" value="{{ title }}"></input>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="description">Description (optional):</label>
+        <div class="controls">
+          <input type="text" name="description" value="{{ description }}"></input>
+        </div>
+      </div>
+    </div>
+    <div class="span4">
+      <div class="control-group">
+        <label class="control-label" for="img">Image URL:</label>
+        <div class="controls">
+          <input type="text" name="img" value="{{ img }}"></input>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="link">Link:</label>
+        <div class="controls">
+          <input type="text" name="link" value="{{ link }}"></input>
+        </div>
+      </div>
+    </div>
+  </form>
+</template>
