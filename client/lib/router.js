@@ -8,16 +8,13 @@ Meteor.Router.add({
       return 'editor';
     }
   },
-  '/gettingstarted': { as: 'gettingStarted', to: 'gettingStarted'},
-  '/examples': 'examples',
-  '/faq': 'faq',
   '/learn/': 'learnList',
   '/learn/:_id': {
     as: 'learn',
     to: function(_id) {
       var post = Posts.findOne({ $or: [ { '_id': _id }, { 'fancyLink': _id } ] });
-      
       if (post) {
+        Session.set("currentPost", post);
         return 'learn';
       }
       else {
@@ -69,7 +66,7 @@ Meteor.Router.filters({
 });
 
 Meteor.Router.filter('checkLoggedIn', {
-  except: [ 'home', 'gettingStarted', 'examples', 'faq', 'learnList', 'learn', '404']
+  except: [ 'home', 'learnList', 'learn', '404']
 });
 Meteor.Router.filter('adminOnly', {
   only: [ 'admin' ]

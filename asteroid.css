@@ -92,13 +92,24 @@ pre.log {
 
 /* Learn list */
 .learn-thumbnail div.img-container {
-  min-height: 180px;
+  height: 180px;
+  text-align: center;
+}
+.learn-thumbnail img {
+  max-height: 100%;
+  max-width: 100%;
 }
 .learn-thumbnail h1 {
+  margin: 5px;
+  min-height: 50px;
   font-size: 18px;
   line-height: 24px;
   color: #333333;
   text-decoration: none;
+}
+.learn-thumbnail p {
+  margin: 5px;
+  min-height: 60px;
 }
 .learn-thumbnail a:link {
   text-decoration: none;
@@ -139,7 +150,10 @@ pre.log {
   margin-left: 10px;
   width: 64px;
 }
-
+.votes-box {
+  float: right;
+  margin-top: 16px;
+}
 
 /* Learn page editor */
 .learn-editor .nav-tabs {

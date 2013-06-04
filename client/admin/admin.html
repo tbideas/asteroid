@@ -28,7 +28,7 @@
 <template name="adminPost">
   <tr>
     <td>{{ title }}</td>
-    <td>{{ author }}</td>
+    <td><a href="#" rel="tooltip" title="{{ voters }}">{{ votes }}</a></td>
     <td>
       <button class="btn" name="edit"><i class="icon-edit"></i></button>
       <button class="btn btn-danger" name="delete"><i class="icon-trash icon-white"></i></button>

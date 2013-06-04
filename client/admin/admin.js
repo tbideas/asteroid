@@ -1,10 +1,23 @@
 Template.adminDashboard.posts = function() {
-  return Posts.find();
+  return Posts.find({}, {sort: { createdAt:1 }});
 }
-
+Template.adminPost.voters = function() {
+  return _.map(this.voters, function(voter) {
+    var user = Meteor.users.findOne(voter);
+    if (user) {
+      return getUserDisplayName(user);
+    }
+    else {
+      return voter;
+    }
+  }).join(" ");
+}
+Template.adminPost.rendered = function() {
+  $('a[rel=tooltip]').tooltip();
+}
 Template.adminDashboard.events({
   'click button[name="buttonNewPost"]': function(event, template) {
-    var postId = Posts.insert(createNewPosts());
+    var postId = Posts.insert(new Post());
     Meteor.Router.to('learnEditor', postId);
   }
 });

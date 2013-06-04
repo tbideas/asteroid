@@ -1,35 +1,45 @@
 <template name="learn">
   <div class="container">
+    {{#with post}}
+      <div class="row">
+        <div class="span9">
+          <p>
+            <span class="votes-box"><span class="badge badge-success">{{ votes }}</span>
+            {{#if canVote }}
+              <button class="btn btn-link" name="voteUp"><i class="icon-thumbs-up"></i></button>
+            {{/if}}</span>
 
+            <h3 style="margin-bottom:0px;">{{ title }}</h3>
+          </p>
+        </div>
+        <div class="span3">
+          <button class="btn btn-primary btn-deploy"><i class="icon-download icon-white"></i> Deploy</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span9 learn-content">
+          <p>{{{ contentHTML }}}</p>
+        </div>
+        <div class="span3">
+          {{#each prerequisites }}
+            {{> prerequisite}}
+          {{/each}}          
+        </div>
+      </div>
+    {{/with}}
+    
     <div class="row">
       <div class="span9">
-        <p>
-          <h3 style="margin-bottom:0px;">{{ title }}</h3>
-          <small>by <a href="#">thomas</a> (42) - on dec 2013</small>
-        </p>
-      </div>
-      <div class="span3">
-        <button class="btn btn-primary btn-deploy"><i class="icon-download icon-white"></i> Deploy</button>
+        <div id="disqus_thread"></div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="span9 learn-content">
-        <p>{{{ content }}}</p>
-      </div>
-      <div class="span3">
-        {{#each prerequisites }}
-          {{> prerequisite}}
-        {{/each}}          
-      </div>
-    </div>
-
   </div>
 </template>
 
 <template name="prerequisite">
   <div class="media prerequisite">
-    <a class="pull-left" href="#">
+    <a class="pull-left" target="_blank" href="{{ link }}">
       <img class="media-object" src="{{ img }}">
     </a>
     <div class="media-body">

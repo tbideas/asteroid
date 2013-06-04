@@ -1,12 +1,29 @@
-Template.learn.title = function() {
-  return Session.get("currentPost").title;
+Template.learn.post = function() {
+  return new Post(Session.get("currentPost"));
 }
-
-Template.learn.content = function() {
+Template.learn.contentHTML = function() {
   var converter = new Showdown.converter();
-  return converter.makeHtml(Session.get("currentPost").content);
+  return converter.makeHtml(this.content);
 }
-
-Template.learn.prerequisites = function() {
-  return Session.get("currentPost").prerequisites;
+Template.learn.canVote = function() {
+  return this.canVote();
+}
+Template.learn.events({
+  'click button[name="voteUp"]': function(event, template) {
+    this.voteUp();
+  }
+})
+Template.learn.rendered = function() {
+  var post = Session.get("currentPost");
+  
+  if (post && typeof DISQUS === "object") {
+    DISQUS.reset({
+      reload: true,
+      config: function () {  
+        this.page.identifier = post.__id;  
+        this.page.title = post.title;
+        this.page.url = post.fancyUrl();
+      }
+    });
+  }
 }

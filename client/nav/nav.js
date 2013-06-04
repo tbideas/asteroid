@@ -1,13 +1,6 @@
 var navLinks = [
   { title: 'Dashboard', to: Meteor.Router.dashboardPath(), logged: true },
   { title: 'Admin', to: Meteor.Router.adminDashboardPath(), logged:true, admin:true},
-  { title: 'Documentation', 
-    subitems: [
-      { title: 'Getting Started', to: Meteor.Router.gettingStartedPath() },
-      { title: 'Examples', to: Meteor.Router.examplesPath() },
-      { title: 'FAQ', to: Meteor.Router.faqPath() }
-    ]
-  },
   { title: 'Learn', to: Meteor.Router.learnListPath() }
 ];
 
