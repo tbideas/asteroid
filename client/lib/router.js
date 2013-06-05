@@ -11,28 +11,16 @@ Meteor.Router.add({
   '/learn/': 'learnList',
   '/learn/:_id': {
     as: 'learn',
-    to: function(_id) {
-      var post = Posts.findOne({ $or: [ { '_id': _id }, { 'fancyLink': _id } ] });
-      if (post) {
-        Session.set("currentPost", post);
-        return 'learnView';
-      }
-      else {
-        return '404';
-      }
+    to: 'learnView',
+    and: function(_id) {
+      Session.set("currentPostId", _id);
     }
   },
   '/learn/:_id/edit': {
     as: 'learnEditor',
-    to: function(_id) {
-      var post = Posts.findOne(_id);
-      if (post) {
-        Session.set('currentPost', post);
-        return 'learnEditor';
-      }
-      else {
-        return '404';
-      }
+    to: 'learnEditor', 
+    and: function(_id) {
+      Session.set("currentPostId", _id);
     }
   },
   '/admin/': 'adminDashboard',
@@ -49,12 +37,6 @@ Meteor.Router.filters({
       return 'home';
     }
   },
-  'stats': function(page) {
-    if (page in Meteor.Router.namedRoutes) {
-      analytics.page(Meteor.Router.namedRoutes[page].path);
-    }
-    return page;
-  },
   'adminOnly': function(page) {
     if (Meteor.user().isAdmin === true) {
       return page;
@@ -65,10 +47,24 @@ Meteor.Router.filters({
   }
 });
 
+Meteor.startup(function() {
+  Meteor.autorun(function() {
+    // Thanks Telescope for this nice trick ;)
+    // grab the current page from the router, so this re-runs every time it changes
+    Meteor.Router.page();
+
+    if(Meteor.Router.page() !== "loading" && !Meteor.loggingIn()){
+      // Run in non-reactive context to avoid change to user forcing re-running this.
+      Deps.nonreactive(function() {
+        analytics.page(document.location.pathname);
+      });
+    }
+  });
+});
+
 Meteor.Router.filter('checkLoggedIn', {
   except: [ 'home', 'learnList', 'learn', '404']
 });
 Meteor.Router.filter('adminOnly', {
   only: [ 'admin' ]
 });
-Meteor.Router.filter('stats', {});

@@ -1,5 +1,6 @@
 Template.learnView.post = function() {
-  return new Post(Session.get("currentPost"));
+  var id = Session.get('currentPostId');
+  return Posts.findOneWithFancyId(id);
 }
 Template.learnViewContent.contentHTML = function() {
   var converter = new Showdown.converter();
@@ -41,9 +42,8 @@ Template.learnViewContent.events({
   }
 })
 Template.learnViewComments.rendered = function() {
-  var post = Session.get("currentPost");
-  
-  if (post && typeof DISQUS === "object") {
+  var post = this.data;
+  if (typeof DISQUS === "object") {
     DISQUS.reset({
       reload: true,
       config: function () {  
@@ -75,7 +75,7 @@ Template.deployTargetModalDevice.lastSeen = function() {
 }
 Template.deployTargetModalDevice.events({
   'click .btn': function() {
-    var post = new Post(Session.get("currentPost"));
+    var post = Posts.findOneWithFancyId(Session.get("currentPostId"));
     post.deployTo(this._id);
     $('#chooseDeployTargetModal').modal("hide");
     Meteor.Router.to('editor', this._id);
