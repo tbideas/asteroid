@@ -60,6 +60,14 @@ Template.learnViewComments.rendered = function() {
   }
 }
 
+Template.prerequisite.events({
+  'click': function(event, template) {
+    if (template.data.link) {
+      analytics.event("LearnLink", template.data.link);
+    }
+  }
+})
+
 Template.connectToDeployModal.events({
   'click': function() {
     $('#connectToDeployModal').modal("hide");
