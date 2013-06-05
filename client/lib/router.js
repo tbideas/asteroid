@@ -15,7 +15,7 @@ Meteor.Router.add({
       var post = Posts.findOne({ $or: [ { '_id': _id }, { 'fancyLink': _id } ] });
       if (post) {
         Session.set("currentPost", post);
-        return 'learn';
+        return 'learnView';
       }
       else {
         return '404';

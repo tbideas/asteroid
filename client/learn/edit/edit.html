@@ -5,17 +5,37 @@
         <ul class="nav nav-tabs">
           <li class="active"><a href="#edit" data-toggle="tab">Edit post</a></li>
           <li><a href="#prerequisites" data-toggle="tab">Pre-requisites</a></li>
+          <li><a href="#code" data-toggle="tab">Code</a></li>
           <li><a href="#preview" data-toggle="tab">Preview</a></li>
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="edit">
-            {{> editTab }}
+            {{#isolate}}
+              {{#with post}}
+                {{> editTab }}
+              {{/with}}
+            {{/isolate}}
           </div>
           <div class="tab-pane" id="prerequisites">
-            {{> prerequisitesTab }}
+            {{#isolate}}
+              {{#with post}}
+                {{> prerequisitesTab }}
+              {{/with}}
+            {{/isolate}}
+          </div>
+          <div class="tab-pane" id="code">
+            {{#isolate}}
+              {{#with post}}
+                {{> codeTab }}
+              {{/with}}
+            {{/isolate}}
           </div>
           <div class="tab-pane" id="preview">
-            {{> learn }}
+            {{#isolate}}
+              {{#with post}}
+                {{> learnViewContent }}
+              {{/with}}
+            {{/isolate}}
           </div>
         </div>
       </div>
@@ -119,5 +139,20 @@
   
       <button class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i></button>
     </fieldset>
+  </div>
+</template>
+
+<template name="codeTab">
+  <div class="row">
+    <div class="span8">
+      <fieldset class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label">Code</label>
+          <div class="controls">
+            <textarea name="code">{{{ code }}}</textarea>
+          </div>
+        </div>
+      </fieldset>
+    </div>
   </div>
 </template>

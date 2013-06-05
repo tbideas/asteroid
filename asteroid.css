@@ -144,7 +144,8 @@ pre.log {
   font-size: 14px;
 }
 .btn-deploy {
-  margin-top: 20px;
+  margin: 20px 0px 20px 0px;
+  width: 100%;
 }
 .prerequisite img {
   margin-left: 10px;
@@ -153,6 +154,10 @@ pre.log {
 .votes-box {
   float: right;
   margin-top: 16px;
+}
+#connectToDeployModal p {
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 /* Learn page editor */
@@ -165,7 +170,7 @@ pre.log {
 .learn-editor textarea {
   width: 100%;
 }
-.learn-editor textarea[name='content'] {
+.learn-editor textarea[name='content'], .learn-editor textarea[name='code']{
   height: 320px;
   font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
   font-size: 12px;

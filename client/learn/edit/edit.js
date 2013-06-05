@@ -1,13 +1,8 @@
-Template.editTab.title = function() {
-  return Session.get("currentPost").title;
-}
-
-Template.editTab.summary = function() {
-  return Session.get("currentPost").summary;
-}
-
-Template.editTab.image = function() {
-  return Session.get("currentPost").image;
+/*Template.editTab.title = function() { return Session.get("currentPost").title };
+Template.codeTab.code = function() { return Session.get("currentPost").code };
+*/
+Template.learnEditor.post = function() {
+  return new Post(Session.get("currentPost"));
 }
 
 Template.editTab.fancyLink = function() {
@@ -30,11 +25,11 @@ Template.editTab.fancyLink = function() {
 
 Template.editTab.content = function() {
   var converter = new Showdown.converter();
-  return Session.get("currentPost").content;
+  return this.content;
 }
 
 Template.prerequisitesTab.prerequisites = function() {
-  var array = Session.get("currentPost").prerequisites;
+  var array = this.prerequisites;
 
   if (typeof array === "object") {
     for (i = 0; i < array.length; i++) {
@@ -54,7 +49,7 @@ Template.editTab.events({
       button.enabled = false;    
     
       console.log("calling update...");
-      Posts.update(Session.get("currentPost")._id, {$set: _.pick(Session.get("currentPost"), 'title', 'summary', 'image', 'fancyLink', 'content', 'prerequisites') }, function(error) {
+      Posts.update(Session.get("currentPost")._id, {$set: _.pick(Session.get("currentPost"), 'title', 'summary', 'image', 'fancyLink', 'content', 'prerequisites', 'code') }, function(error) {
         console.log("back from update %j", error);
         if (error) {
           console.log("Error saving currentPost: %j", error);
@@ -123,6 +118,14 @@ Template.editPrereq.events({
     
     var post = Session.get("currentPost");
     post.prerequisites.splice(idx, 1);
+    Session.set("currentPost", post);
+  }
+})
+
+Template.codeTab.events({
+  'keyup textarea': function(event, template) {
+    var post = Session.get("currentPost");
+    post.code = template.find("textarea[name='code']").value;
     Session.set("currentPost", post);
   }
 })

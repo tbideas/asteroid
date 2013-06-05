@@ -1,0 +1,112 @@
+<template name="learnView">
+  <div class="container">
+    {{> connectToDeployModal }}
+    {{> chooseDeployTargetModal }}
+    {{#with post}}
+      {{> learnViewContent }}
+      {{> learnViewComments }}
+    {{/with}}
+  </div>
+</template>
+
+<template name="learnViewContent">
+  <div class="row">
+    <div class="span9">
+      <p>
+        <span class="votes-box"><span class="badge badge-success">{{ votes }}</span>
+        {{#if canVote }}
+          <button class="btn btn-link" name="voteUp"><i class="icon-thumbs-up"></i></button>
+        {{/if}}</span>
+
+        <h3 style="margin-bottom:0px;">{{ title }}</h3>
+      </p>
+    </div>
+    {{#if canDeploy }}
+      <div class="span3">
+        <button name="deploy" class="btn btn-primary btn-deploy btn-large">
+          <i class="icon-download icon-white"></i> One-click Deploy!
+        </button>
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="row">
+    <div class="span9 learn-content">
+      <p>{{{ contentHTML }}}</p>
+    </div>
+    <div class="span3">
+      {{#each prerequisites }}
+        {{> prerequisite}}
+      {{/each}}          
+    </div>
+  </div>
+</template>
+
+<template name="learnViewComments">
+  <div class="row">
+    <div class="span9">
+      <div id="disqus_thread"></div>
+    </div>
+  </div>
+</template>
+
+<template name="prerequisite">
+  <div class="media prerequisite">
+    <a class="pull-left" target="_blank" href="{{ link }}">
+      <img class="media-object" src="{{ img }}">
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading">{{ title }}</h4>
+      <p>{{ description }}</p>
+    </div>
+  </div>
+</template>
+
+<template name="connectToDeployModal">
+  <div id="connectToDeployModal" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Connect a Raspberry Pi first!</h3>
+    </div>
+    <div class="modal-body">
+      <p>
+        One-click deploy allows you to try code in our tutorials with just one click!<br/>
+        Follow the <a href="/learn/getting-started">getting started guide</a> to connect your Raspberry Pi.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <a href="/learn/getting-started" class="btn btn-primary">Let's do it!</a>
+      <button class="btn">Close</button>
+    </div>
+  </div>
+</template>
+
+<template name="chooseDeployTargetModal">
+  <div id="chooseDeployTargetModal" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Select deploy target</h3>
+    </div>
+    <div class="modal-body">
+      <table class="table">
+        <tbody>
+          {{#each userDevices}}
+            {{>deployTargetModalDevice}}
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <a href="/learn/getting-started" class="btn btn-primary">Let's do it!</a>
+      <button class="btn">Close</button>
+    </div>
+  </div>
+</template>
+
+<template name="deployTargetModalDevice">
+  <tr>
+    <td>{{ name }}</td>
+    <td>{{ lastSeen }}</td>
+    <td><button class="btn btn-primary"><i class="icon-download icon-white"></i></button></td>
+  </tr>
+</template>
