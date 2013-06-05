@@ -63,8 +63,8 @@ Meteor.startup(function() {
 });
 
 Meteor.Router.filter('checkLoggedIn', {
-  except: [ 'home', 'learnList', 'learn', '404']
+  except: [ 'home', 'learnList', 'learnList', 'learnView', '404']
 });
 Meteor.Router.filter('adminOnly', {
-  only: [ 'admin' ]
+  only: [ 'admin', 'learnEditor' ]
 });
