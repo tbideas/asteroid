@@ -46,7 +46,6 @@ Template.prerequisitesTab.prerequisites = function() {
 Template.editTab.events({
   'click .btn#post-save': function(event, template) {
     var button = template.find('button#post-save');
-    console.log("saving - button.enabled=%s", (button.enabled !== false ? "true" : "false"));
     if (button.enabled !== false) {
       var initialText = button.innerHTML;
       button.innerHTML = "Saved!";
@@ -88,7 +87,7 @@ Template.editTab.events({
 Template.prerequisitesTab.events({
   'click button[name="addPrereq"]': function(event, template) {
     event.preventDefault();
-    var post = this.data;
+    var post = this;
     if (typeof post.prerequisites !== "object") {
       post.prerequisites = [];
     }

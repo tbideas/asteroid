@@ -52,13 +52,23 @@
 
 <template name="prerequisite">
   <div class="media prerequisite">
-    <a class="pull-left" target="_blank" href="{{ link }}">
+    {{#if link}}
+      <a class="pull-left" target="_blank" href="{{ link }}">
+        <img class="media-object" src="{{ img }}">
+      </a>
+      <div class="media-body">
+        <a target="_blank" href="{{ link }}">
+          <h4 class="media-heading">{{ title }}</h4>
+        </a>
+        <p>{{ description }}</p>
+      </div>
+    {{else}}
       <img class="media-object" src="{{ img }}">
-    </a>
-    <div class="media-body">
-      <h4 class="media-heading">{{ title }}</h4>
-      <p>{{ description }}</p>
-    </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{ title }}</h4>
+        <p>{{ description }}</p>
+      </div>
+    {{/if}}
   </div>
 </template>
 
