@@ -1,35 +1,35 @@
-Accounts.loginServiceConfiguration.remove({
+ServiceConfiguration.configurations.remove({
   service: "twitter"
 });
 
 if (Meteor.settings.twitter) {
-  Accounts.loginServiceConfiguration.insert({
+  ServiceConfiguration.configurations.insert({
     service: "twitter",
     consumerKey: Meteor.settings.twitter.token,
     secret: Meteor.settings.twitter.key
   });
 }
 
-Accounts.loginServiceConfiguration.remove({
+ServiceConfiguration.configurations.remove({
   service: "github"
 });
-  if (Meteor.settings.github) {
-  Accounts.loginServiceConfiguration.insert({
+if (Meteor.settings.github) {
+  ServiceConfiguration.configurations.insert({
     service: "github",
     clientId: Meteor.settings.github.token,
     secret: Meteor.settings.github.key
   });
 }
 
-Accounts.loginServiceConfiguration.remove({
+ServiceConfiguration.configurations.remove({
   service: "facebook"
 });
 if (Meteor.settings.facebook) {
-  Accounts.loginServiceConfiguration.insert({
+  ServiceConfiguration.configurations.insert({
     service: "facebook",
     appId: Meteor.settings.facebook.token,
     secret: Meteor.settings.facebook.key
   });
 }
 
-console.log(Accounts.loginServiceConfiguration.find().fetch());
+console.log(ServiceConfiguration.configurations.find().fetch());
