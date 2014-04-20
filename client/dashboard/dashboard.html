@@ -48,17 +48,17 @@
     <td class="deviceName">
       {{#if editName }}
         <div class="input-append">
-          <input type="text" class="endsInput" placeholder="Name me!" value="{{ name }}">
+          <input type="text" class="endsInput" placeholder="Name me!" value="{{ displayName }}">
           <button class="btn endsInput" type="button"><i class="icon-ok"></i></button>
         </div>
       {{ else }}
-        {{ name }}
+        {{ displayName }}
       {{/if }}
     </td>
     <td><pre>{{ software }} - {{ version }}</pre></td>
     <td>{{ lastSeen }}</td>
     <td>
-      <a class="btn" href="{{ editorPath _id }}">Edit Code</a>
+      <a class="btn" href="{{ pathFor 'editor' }}">Edit Code</a>
       <button class="btn viewLogs"><i class="icon-list-alt"></i></button>
       <button class="btn deleteLogs"><i class="icon-remove"></i></button>
     </td>

@@ -18,23 +18,24 @@ Template.adminPost.rendered = function() {
 Template.adminDashboard.events({
   'click button[name="buttonNewPost"]': function(event, template) {
     var postId = Posts.insert(new Post());
-    Meteor.Router.to('learnEditor', postId);
+    Router.go('learnEditor', { _id: postId });
   }
 });
 
 Template.adminPost.events({
   'click button[name="edit"]': function(event, template) {
-    Meteor.Router.to('learnEditor', template.data._id);
+    Router.go('learnEditor', { _id: template.data._id } );
   },
   'click button[name="delete"]': function(event, template) {
     var result = confirm("Are you sure?");
-    
     if (result) {
       Posts.remove(template.data._id);
     }
   }
 })
+
 /*
+
 
 // This is what needs to be ran on the mongodb to calculate stats.
 

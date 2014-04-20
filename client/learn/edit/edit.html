@@ -10,37 +10,29 @@
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="edit">
-            {{#isolate}}
-              {{#with post}}
-                {{> editTab }}
-              {{/with}}
-            {{/isolate}}
+            {{#with post}}
+              {{> editTab }}
+            {{/with}}
           </div>
           <div class="tab-pane" id="prerequisites">
-            {{#isolate}}
-              {{#with post}}
-                {{> prerequisitesTab }}
-              {{/with}}
-            {{/isolate}}
+            {{#with post}}
+              {{> prerequisitesTab }}
+            {{/with}}
           </div>
           <div class="tab-pane" id="code">
-            {{#isolate}}
-              {{#with post}}
-                {{> codeTab }}
-              {{/with}}
-            {{/isolate}}
+            {{#with post}}
+              {{> codeTab }}
+            {{/with}}
           </div>
           <div class="tab-pane" id="preview">
-            {{#isolate}}
-              {{#with post}}
-                {{> learnViewContent }}
-              {{/with}}
-            {{/isolate}}
+            {{#with post}}
+              {{> learnViewContent }}
+            {{/with}}
           </div>
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </template>
 
 <template name="editTab">
@@ -60,7 +52,7 @@
             <textarea name="summary" class="span8">{{{ summary }}}</textarea>
           </div>
         </div>
-      
+
         <div class="control-group">
           <label class="control-label">Image</label>
           <div class="controls">
@@ -74,9 +66,9 @@
             <input name="fancyLink" type="text" value="{{ fancyLink }}">
             <span class="help-block help-fancyLink">http://www.pijs.io/learn/{{ fancyLink }}</span>
           </div>
-          
+
         </div>
-      
+
         <div class="control-group">
           <label class="control-label">Content</label>
           <div class="controls">
@@ -136,7 +128,7 @@
           <input type="text" name="link" value="{{ link }}">
         </div>
       </div>
-  
+
       <button class="btn btn-danger pull-right"><i class="icon-trash icon-white"></i></button>
     </fieldset>
   </div>
