@@ -1,8 +1,5 @@
 {
-  "meteor": {
-    "tag": "release/0.6.3.1"
-  },
   "packages": {
-    "router": {}
+    "iron-router": {}
   }
 }

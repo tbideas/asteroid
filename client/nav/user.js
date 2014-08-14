@@ -12,7 +12,7 @@ signupCallback = function(provider, error) {
     analytics.alias(Meteor.user()._id);
     analytics.event("Signup+Login", "NewUser-" + provider);
 
-    Meteor.Router.to('dashboard');
+    Router.go('dashboard');
   }
 };
 Template.userLoggedOut.events({
@@ -57,7 +57,7 @@ Template.userLoggedOut.events({
         if (error)
           Session.set("loginError", error.reason);
         else
-          Meteor.Router.to('dashboard');
+          Router.go('dashboard');
       });
       analytics.event("Signup+Login", "Login password");
     }

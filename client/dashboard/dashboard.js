@@ -29,8 +29,13 @@ Template.device.rowClass = function(status) {
 Template.device.editName = function() {
   return this.name === undefined || Session.get("edit-" + this._id);
 }
-Template.device.name = function() {
-  return "Name me!"
+Template.device.displayName = function() {
+  if (this.name === undefined) {
+    return "Name me!";
+  }
+  else {
+    return this.name;
+  }
 }
 Template.device.lastSeen = function() {
   return moment(this.lastSeen).fromNow();

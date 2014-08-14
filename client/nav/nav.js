@@ -1,40 +1,35 @@
 var navLinks = [
-  { title: 'Dashboard', to: Meteor.Router.dashboardPath(), logged: true },
-  { title: 'Admin', to: Meteor.Router.adminDashboardPath(), logged:true, admin:true},
-  { title: 'Learn', to: Meteor.Router.learnListPath() }
+  { title: 'Dashboard', to: Router.path('dashboard'), logged: true },
+  { title: 'Admin', to: Router.path('adminDashboard'), logged:true, admin:true},
+  { title: 'Learn', to: Router.path('learnList') }
 ];
 
 Template.nav.navLinks = function() {
   if (Meteor.user()) {
     if (Meteor.user().isAdmin === true) {
-      return navLinks      
+      return navLinks;
     }
     else {
       return _.reject(navLinks, function(e) { return "admin" in e && e['admin'] } );
     }
   }
-    
   else
     return _.reject(navLinks, function(e) { return "logged" in e && e['logged'] } );
-}
+};
 
 Template.navLink.hasSubItems = function() {
   return this.subitems && this.subitems.length > 0;
-}
+};
 
 Template.navLink.navClass = function() {
-  var currentPage = Meteor.Router.page();
+  var currentPage = Router.current();
   var currentPath;
-  if (currentPage && currentPage in Meteor.Router.namedRoutes) {
-    currentPath = Meteor.Router.namedRoutes[currentPage].path;
+  if (currentPage) {
+    currentPath = currentPage.path;
   }
-  
-  if (this.to === currentPath)
+
+  if (currentPath && currentPath.indexOf(this.to) == 0)
     return "active";
 
-  if (this.subitems)
-    for (var i in this.subitems) 
-      if (i.to === currentPage)
-        return "active";
   return "";
-}
+};

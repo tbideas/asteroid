@@ -31,7 +31,7 @@ Template.learnViewContent.events({
         analytics.event("Learn", "Deploy");
         var deviceId = userDevices.fetch()[0]._id;
         this.deployTo(deviceId);
-        Meteor.Router.to('editor', deviceId);
+        Router.go('editor', deviceId);
       }
       // User has several devices - Ask him where to deploy
       else {
@@ -97,6 +97,6 @@ Template.deployTargetModalDevice.events({
     var post = Posts.findOneWithFancyId(Session.get("currentPostId"));
     post.deployTo(this._id);
     $('#chooseDeployTargetModal').modal("hide");
-    Meteor.Router.to('editor', this._id);
+    Router.go('editor', this._id);
   }
 })
