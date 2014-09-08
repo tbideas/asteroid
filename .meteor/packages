@@ -15,3 +15,5 @@ showdown
 standard-app-packages
 iron:router
 service-configuration
+meteorhacks:kadira
+
