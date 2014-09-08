@@ -13,5 +13,5 @@ http
 email
 showdown
 standard-app-packages
-iron-router
+iron:router
 service-configuration
