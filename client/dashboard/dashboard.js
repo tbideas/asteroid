@@ -10,10 +10,7 @@ Template.deviceList.events({
   'click .addDevice': function(event, template) {
     $('#addDeviceModal').modal();
     analytics.event("Dashboard", "New device wizard");
-    
-    WhatsMyIp.getIP(function(myip) {
-      Meteor.subscribe("new-devices", myip);
-    });    
+    Meteor.subscribe("new-devices");
   }
 });
 Template.device.rowClass = function(status) {

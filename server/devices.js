@@ -53,7 +53,8 @@ Meteor.startup(function(){
   });
 });
 
-Meteor.publish("new-devices", function(ip) {
+Meteor.publish("new-devices", function() {
+  var ip = this.connection.clientAddress;
   console.log("Subscribing to new-devices with ip: %s", ip);
   return Devices.findNewDevices(ip);
 });
@@ -81,6 +82,8 @@ Meteor.methods({
     if (! infos) {
       infos = {};
     }
+
+    // TODO: Use this.connection.clientAddress to get the IP address automatically on the server side
     if (! 'ip' in infos) {
       infos.ip = undefined;
     }
